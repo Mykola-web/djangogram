@@ -5,3 +5,11 @@ __pycache__/
 charcountpy.egg-info/
 venv/
 .env/
+db.sqlite3
+migrations/
+*.pyc
+__pycache__/
+*.log
+.idea/
+*.env
+*.bak
