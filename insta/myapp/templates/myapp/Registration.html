@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  {% load static %}
+  <link href="{% static 'styles.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+    <form action="#">
+      <h2>Register</h2>
+
+      <!-- First Name -->
+      <div class="input-field">
+        <input type="text" name="first_name" required>
+        <label>Enter your first name</label>
+      </div>
+
+      <!-- Last Name -->
+      <div class="input-field">
+        <input type="text" name="last_name" required>
+        <label>Enter your last name</label>
+      </div>
+
+      <!-- Email -->
+      <div class="input-field">
+        <input type="email" name="email" required>
+        <label>Enter your email</label>
+      </div>
+
+      <!-- Create Password -->
+      <div class="input-field">
+        <input type="password" name="password" required>
+        <label>Create your password</label>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="input-field">
+        <input type="password" name="confirm_password" required>
+        <label>Confirm your password</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Register</button>
+
+      <!-- Register link (if the user already has an account) -->
+      <div class="register">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
