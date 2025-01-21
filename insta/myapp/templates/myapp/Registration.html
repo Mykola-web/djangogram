@@ -4,44 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Form</title>
+  <title>Registration</title>
   {% load static %}
   <link href="{% static 'styles.css' %}" rel="stylesheet">
 </head>
 <body>
   <div class="wrapper">
-    <form action="#">
+    <form method="POST" id="registration-form">
       <h2>Registration</h2>
+      {% csrf_token %}
 
       <!-- First Name -->
       <div class="input-field">
-        <input type="text" name="first_name" required>
         <label>Enter your first name</label>
+        <input type="text" name="first_name" id="id_first_name" class="custom-style" required>
       </div>
 
       <!-- Last Name -->
       <div class="input-field">
-        <input type="text" name="last_name" required>
+        <input type="text" name="last_name" id="id_last_name" class="custom-style" required>
         <label>Enter your last name</label>
       </div>
 
       <!-- Email -->
       <div class="input-field">
-        <input type="email" name="email" required>
+        <input type="email" name="email" id="id_email" class="custom-style"
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+               title="Email must be in the format: example@domain.com"
+               required>
         <label>Enter your email</label>
       </div>
 
       <!-- Create Password -->
       <div class="input-field">
-        <input type="password" name="password" required>
+        <input type="password" name="password" id="id_password" class="custom-style" minlength="6" required>
         <label>Create your password</label>
       </div>
 
       <!-- Confirm Password -->
       <div class="input-field">
-        <input type="password" name="confirm_password" required>
+        <input type="password" name="confirm_password" id="id_confirm_password" class="custom-style" minlength="6" required>
         <label>Confirm your password</label>
       </div>
+      <div id="passwordError" style="color: red;"></div>
 
       <!-- Submit Button -->
       <button type="submit">Register</button>
@@ -52,5 +57,7 @@
       </div>
     </form>
   </div>
+  <script src="{% static 'script.js' %}"></script>
+  </script>
 </body>
 </html>

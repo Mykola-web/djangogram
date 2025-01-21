@@ -1,14 +1,13 @@
-// Находим форму по ID
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
-    const password = document.getElementById("password").value; // Получаем значение пароля
-    const confirmPassword = document.getElementById("confirmPassword").value; // Получаем значение подтверждения пароля
-    const errorDiv = document.getElementById("passwordError"); // Находим блок для ошибок
+document.getElementById("registration-form").addEventListener("submit", function(event) {
+    const password = document.getElementById("id_password").value;
+    const confirmPassword = document.getElementById("id_confirm_password").value;
+    const errorDiv = document.getElementById("passwordError");
 
-    // Проверяем, совпадают ли пароли
+
     if (password !== confirmPassword) {
-        event.preventDefault(); // Отменяем отправку формы
-        errorDiv.textContent = "Passwords do not match!"; // Показываем ошибку
+        event.preventDefault();
+        errorDiv.textContent = "Passwords do not match!";
     } else {
-        errorDiv.textContent = ""; // Если всё ок, убираем ошибку
+        errorDiv.textContent = "";
     }
 });
