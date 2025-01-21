@@ -5,25 +5,25 @@ def home(request):
     return render(request, 'myapp/home.html')
 
 
-def signin(request):
-    return render(request, 'myapp/about.html')
+def login(request):
+    return render(request, 'myapp/login.html')
 
 
-def signup(request):
-    return render(request, 'myapp/about.html')
+def register(request):
+    return render(request, 'myapp/Registration.html')
 
 
 def profile_edit(request):
-    return render(request, 'myapp/about.html')
+    return render(request, 'myapp/profile_edit.html')
 
 
 def feed(request):
-    return render(request, 'myapp/about.html')
+    return render(request, 'myapp/feed.html')
 
 
 def profile(request):
-    return render(request, 'myapp/about.html')
+    return render(request, 'myapp/profile.html')
 
 
 def make_post(request):
-    return render(request, 'myapp/about.html')
+    return render(request, 'myapp/post.html')

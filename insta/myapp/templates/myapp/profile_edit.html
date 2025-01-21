@@ -1,9 +1,68 @@
-{% extends 'myapp/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Form</title>
+  {% load static %}
+  <link href="{% static 'styles.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Подключение скрипта Flatpickr -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <form action="#" method="post" enctype="multipart/form-data">
+      <h2>Profile Information</h2>
 
-{% block title %}
-<title>PROFILE/EDIT</title>
-{% endblock %}
+      <!-- First Name -->
+      <div class="input-field">
+        <input type="text" name="first_name" required>
+        <label>Enter your first name</label>
+      </div>
 
-{% block content %}
-<h1>EDIT PROFILE</h1>
-{% endblock %}
+      <!-- Last Name -->
+      <div class="input-field">
+        <input type="text" name="last_name" required>
+        <label>Enter your last name</label>
+      </div>
+
+      <!-- Gender -->
+      <div class="input-field">
+        <select name="gender" required>
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- About Me -->
+      <div class="input-field">
+        <textarea name="about_me" rows="4" required></textarea>
+        <label>Tell about yourself</label>
+      </div>
+
+            <!-- Date of Birth -->
+        <div class="input-field">
+          <input type="text" id="date_of_birth" name="date_of_birth" required>
+          <label for="date_of_birth">Date of Birth</label>
+        </div>
+
+        <script>
+          flatpickr("#date_of_birth", {
+            dateFormat: "d.m.Y",
+          });
+        </script>
+
+      <!-- Submit Button -->
+      <button type="submit">Save Profile</button>
+
+      <!-- Back to Dashboard link -->
+      <div class="register">
+        <p>Want to go back? <a href="{% url 'home' %}">Dashboard</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
