@@ -14,16 +14,10 @@
       <h2>Registration</h2>
       {% csrf_token %}
 
-      <!-- First Name -->
+      <!-- username -->
       <div class="input-field">
-        <label>Enter your first name</label>
-        <input type="text" name="first_name" id="id_first_name" class="custom-style" required>
-      </div>
-
-      <!-- Last Name -->
-      <div class="input-field">
-        <input type="text" name="last_name" id="id_last_name" class="custom-style" required>
-        <label>Enter your last name</label>
+        <input type="text" name="username" id="id_username" class="custom-style" required>
+        <label>Enter username</label>
       </div>
 
       <!-- Email -->
