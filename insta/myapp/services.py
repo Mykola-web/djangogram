@@ -1,0 +1,20 @@
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+
+def generate_activation_link(user):
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+    activation_link = f"http://127.0.0.1:8000/activate/{uid}/{token}/"
+    return activation_link
+
+
+def send_activation_email(user, activation_link):
+    subject = 'Активация аккаунта'
+    message = f'Привет, {user.username}!\n\nПерейдите по ссылке для активации вашего аккаунта:\n{activation_link}'
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = [user.email]
+
+    send_mail(subject, message, from_email, recipient_list)

@@ -3,30 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}
-
-    {% endblock %}
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: url('https://images.pexels.com/photos/9754/mountains-clouds-forest-fog.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .content {
-            font-size: 4em; /* Увеличивает размер текста */
-            font-weight: bold;
-            text-align: center; /* Выравнивание текста по центру */
-            white-space: nowrap; /* Запрещает перенос текста */
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Добавляем тень для улучшения видимости */
-        }
-    </style>
+    <title>{% block title %}Default Title{% endblock %}</title>
+    {% load static %}
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <div class="content">

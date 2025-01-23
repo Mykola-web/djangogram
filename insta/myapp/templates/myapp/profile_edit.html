@@ -12,9 +12,9 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="#" method="post" enctype="multipart/form-data">
-      <h2>Profile Information</h2>
-
+    <form method="POST" id="registration-form" enctype="multipart/form-data">
+      <h2>Please fill in profile information</h2>
+      {% csrf_token %}
       <!-- First Name -->
       <div class="input-field">
         <input type="text" name="first_name" required>
@@ -36,16 +36,20 @@
           <option value="other">Other</option>
         </select>
       </div>
-
-      <!-- About Me -->
+      <!-- Avatar -->
       <div class="input-field">
-        <textarea name="about_me" rows="4" required></textarea>
+        <label for="avatar">Upload avatar</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*">
+      </div>
+      <!-- Bio -->
+      <div class="input-field">
+        <textarea name="bio" rows="4" required></textarea>
         <label>Tell about yourself</label>
       </div>
 
             <!-- Date of Birth -->
         <div class="input-field">
-          <input type="text" id="date_of_birth" name="date_of_birth" required>
+          <input type="text" id="date_of_birth" name="birth_date" required>
           <label for="date_of_birth">Date of Birth</label>
         </div>
 

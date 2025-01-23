@@ -2,17 +2,17 @@ from django import forms
 from django.core.validators import MinLengthValidator
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(max_length=50)
+    username = forms.CharField(max_length=20)
     email = forms.EmailField()
     password = forms.CharField(
-        label="Password",
-        widget=forms.PasswordInput,
+        label = "Password",
+        widget=  forms.PasswordInput,
     #     validators = [MinLengthValidator(6, message="Password must be at least 6 characters long.")
     # ]
     )
     confirm_password = forms.CharField(
-        label="Confirm Password",
-        widget=forms.PasswordInput
+        label = "Confirm Password",
+        widget = forms.PasswordInput
     )
 
     # Валидация на совпадение пароля
@@ -23,3 +23,11 @@ class RegistrationForm(forms.Form):
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
+
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField(max_length = 20)
+    last_name = forms.CharField(max_length=20)
+    gender = forms.ChoiceField()
+    avatar = forms.ImageField(allow_empty_file = True)
+    bio = forms.CharField(max_length = 500)
+    birth_date = forms.DateField()

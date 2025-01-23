@@ -7,22 +7,23 @@
   <title>Registration</title>
   {% load static %}
   <link href="{% static 'styles.css' %}" rel="stylesheet">
+  <link href="{% static 'styles_modal.css' %}" rel="stylesheet">
 </head>
 <body>
   <div class="wrapper">
-    <form method="POST" id="registration-form">
+    <form method="POST" id = "registration-form">
       <h2>Registration</h2>
       {% csrf_token %}
 
       <!-- username -->
       <div class="input-field">
-        <input type="text" name="username" id="id_username" class="custom-style" required>
+        <input type = "text" name = "username" id = "id_username" class = "custom-style" required>
         <label>Enter username</label>
       </div>
 
       <!-- Email -->
       <div class="input-field">
-        <input type="email" name="email" id="id_email" class="custom-style"
+        <input type = "email" name = "email" id = "id_email" class = "custom-style"
                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                title="Email must be in the format: example@domain.com"
                required>
