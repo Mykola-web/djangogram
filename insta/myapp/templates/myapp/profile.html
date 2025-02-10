@@ -1,9 +1,78 @@
-{% extends 'myapp/base.html' %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PROFILE PAGE</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+<body>
 
-{% block title %}
-<title>PROFILE</title>
-{% endblock %}
+</body>
+</html>
+		<!-- Wrapper -->
+			<div id="wrapper">
+				    <div class="header2">
+						<h1>Djangogramm</h1>
+						<nav>
+							<ul>
+								<li><button class="white-btn" onclick="location.href='/feed'">FEED</button></li>
+								<li><button class="white-btn" onclick="location.href='/post'">NEW POST</button></li>
+								<form method="post" action="{% url 'logout' %}">
+								{% csrf_token %}
+								<button type="submit">LOGOUT</button>
+								</form>
+							</ul>
+						</nav>
+					</div>
 
-{% block content %}
-<h1>PROFILE PAGE</h1>
-{% endblock %}
+				<!-- Header -->
+						<header id="header">
+							<span class="avatar">
+								<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+									 alt=""
+									 width="173"
+									 height="178">
+							</span>
+						</header>
+						<h1 style="text-align: center;">{{ user.profile.bio | default:'Some profile text' }}</h1>
+						<ul class="icons" style="text-align: center;"><li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
+							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul></header><!-- Main --><section id="main"><!-- Thumbnails --><section class="thumbnails"><div>
+									<a href="static/images/fulls/01.jpg">
+										<img src="static/images/bg1.jpg" alt="" width="346" height="494"><h3>Lorem ipsum dolor sit amet1</h3>
+									</a>
+									<a href="static/images/fulls/02.jpg">
+										<img src="static/images/thumbs/02.jpg" alt="" width="346" height="239"><h3>Lorem ipsum dolor sit amet2</h3>
+									</a>
+								</div>
+								<div>
+									<a href="static/images/fulls/03.jpg">
+										<img src="static/images/thumbs/03.jpg" alt="" width="346" height="239"><h3>Lorem ipsum dolor sit amet3</h3>
+									</a>
+									<a href="static/images/fulls/04.jpg">
+										<img src="static/images/thumbs/04.jpg" alt="" width="346" height="339"><h3>Lorem ipsum dolor sit amet4</h3>
+									</a>
+									<a href="static/images/fulls/05.jpg">
+										<img src="static/images/thumbs/05.jpg" alt="" width="346" height="299"><h3>Lorem ipsum dolor sit amet5</h3>
+									</a>
+								</div>
+								<div>
+									<a href="static/images/fulls/06.jpg">
+										<img src="static/images/thumbs/06.jpg" alt="" width="346" height="339"><h3>Lorem ipsum dolor sit amet6</h3>
+									</a>
+									<a href="static/images/fulls/07.jpg">
+										<img src="static/images/thumbs/07.jpg" alt="" width="346" height="504"><h3>Lorem ipsum dolor sit amet7</h3>
+									</a>
+								</div>
+							</section></section><!-- Footer --></div>
+		<div class="copyright">
+			Made with: <a href="https://templated.co/">Templated.co</a>
+		</div>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.poptrox.min.js"></script><script src="assets/js/skel.min.js"></script><script src="assets/js/main.js"></script></body></html>

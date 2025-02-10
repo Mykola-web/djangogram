@@ -10,19 +10,21 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="#">
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
       <h2>Login</h2>
-        <div class="input-field">
-        <input type="text" required>
-        <label>Enter your email</label>
+      <div class="input-field">
+        {{ form.username }}
+        <label for="{{ form.username.id_for_label }}">Enter your username</label>
       </div>
       <div class="input-field">
-        <input type="password" required>
-        <label>Enter your password</label>
+        {{ form.password }}
+        <label for="{{ form.password.id_for_label }}">Enter your password</label>
       </div>
       <div class="forget">
         <label for="remember">
-          <input type="checkbox" id="remember">
+          <input type="checkbox" name="remember" id="remember">
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
           <p>Remember me</p>
         </label>
         <a href="#">Forgot password?</a>

@@ -1,9 +1,14 @@
 {% extends 'myapp/base.html' %}
 
 {% block title %}
-<title>POST</title>
+<title>NEW POST</title>
 {% endblock %}
 
 {% block content %}
-<h1>POST PAGE</h1>
+    <h2>Make new post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">CREATE POST</button>
+    </form>
 {% endblock %}

@@ -1,5 +1,65 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
 
+@charset "UTF-8";
+@import url(font-awesome.min.css);
+@import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:200");
+
+/*
+	Visualize by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+/***************************MY STYLES********************************************/
+
+.header2 {
+    background: #333;       /* Темный фон */
+    color: white;           /* Белый текст */
+    padding: 15px 20px;     /* Отступы */
+    display: flex;          /* Размещаем элементы в строку */
+    justify-content: space-between; /* Распределяем по краям */
+    align-items: center;    /* Выравниваем по центру */
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style: none;       /* Убираем маркеры списка */
+    margin: 0;
+    padding: 0;
+    display: flex;          /* Размещаем ссылки в строку */
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;  /* Убираем подчеркивание */
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* Подчеркиваем при наведении */
+}
+
+.white-btn {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+}
+
+.red-btn {
+    background-color: white;
+    color: red;
+    font-weight: 600;
+}
+
+.red-btn:hover, .white-btn:hover {
+    background-color: lightgray;
+}
+/***************************MY STYLES********************************************/
+
 * {
   margin: 0;
   padding: 0;

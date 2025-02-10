@@ -10,6 +10,21 @@
 </head>
 <body>
     <div class="content">
+        <div class="header2">
+            <h1>Djangogramm</h1>
+            <nav>
+                <ul>
+                    {% block navigation %}
+                    {% endblock %}
+                    <li><button class="white-btn" onclick="location.href='/feed'">FEED</button></li>
+                    <li><button class="white-btn" onclick="location.href='/post'">NEW POST</button></li>
+                    <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="red-btn" type="submit">LOGOUT</button>
+                    </form>
+                </ul>
+            </nav>
+        </div>
         {% block content %}
 
         {% endblock %}

@@ -140,3 +140,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/feed/'
