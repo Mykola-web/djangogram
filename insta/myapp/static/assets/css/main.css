@@ -48,7 +48,29 @@ nav ul li a:hover {
 .white-btn:hover {
     background-color: lightgray;
 }
-/***************************MY STYLES********************************************/
+
+/***************************POSTS********************************************/
+
+.posts-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* Три колонки */
+    gap: 20px;                               /* Отступы между элементами */
+}
+
+.post {
+    width=80%;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.post img {
+    max-width: 100%;           /* Убедимся, что изображения не выходят за пределы поста */
+    height: auto;
+}
+
+
+/***************************END MY STYLES********************************************/
 
 /* Reset */
 
@@ -2687,4 +2709,3 @@ nav ul li a:hover {
 	color: white;
 	border-bottom: none;
 }
-

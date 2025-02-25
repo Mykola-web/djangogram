@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile Form</title>
-  {% load static %}
-  <link href="{% static 'styles.css' %}" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <!-- Подключение скрипта Flatpickr -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-</head>
-<body>
+{% extends 'myapp/base.html' %}
+
+{% block title%}Feed{% endblock %}
+
+{% block extra_css%}
+    {% load static %}
+    <link href="{% static 'edit_profile.css' %}" rel="stylesheet">
+{% endblock %}
+{% block navigation %}
+
+  <li><button class="white-btn" onclick="location.href='/profile3'">PROFILE</button></li>
+
+{% endblock %}
+
+{% block content %}
+
   <div class="wrapper">
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
+  <form class="edit_form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
     <div class="input-field">
       <label for = "id_first_name">First Name:</label>
@@ -52,7 +55,7 @@
       <br></br>
     </div>
 
-    <div class="input-field">
+    <div class="input-field" >
       <label for = "id_avatar">Avatar:</label>
       {{ form.avatar }}
       {% if form.avatar.errors %}
@@ -89,9 +92,10 @@
       {% endif %}
     </div>
 
-    <button type = "submit">Save changes</button>
+    <button class="submit_button" type = "submit">Save changes</button>
   </form>
 
   </div>
 </body>
-</html>
+
+{% endblock %}

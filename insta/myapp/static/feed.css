@@ -1,0 +1,92 @@
+/* Контейнер для ленты постов */
+.feed_wrapper {
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Контейнер для постов */
+.feed_post_container {
+    width: 70%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Стиль для каждого поста с глассморфизмом */
+.post {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Полупрозрачный черный фон */
+    padding: 25px 20px; /* Больше отступов для удобства чтения */
+    border-radius: 15px; /* Радиус углов */
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px); /* Размытие фона */
+    -webkit-backdrop-filter: blur(10px); /* Для Safari */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Легкая граница */
+    font-family: 'Roboto', sans-serif; /* Удобный шрифт */
+    color: white; /* Белый цвет текста */
+    line-height: 1.6; /* Междустрочный интервал */
+}
+
+/* Изображения в постах */
+.post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Заголовки в постах */
+.post h3 {
+    font-size: 22px; /* Размер шрифта для заголовков */
+    margin-top: 15px;
+    font-weight: bold;
+    text-transform: uppercase; /* Заглавные буквы */
+    letter-spacing: 1px; /* Увеличение межбуквенного интервала */
+}
+
+/* Дополнительный текст в постах */
+.post p {
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 300; /* Легкий шрифт */
+    text-align: left; /* Текст по левому краю */
+}
+
+/* Стиль для информации об авторе поста */
+.post-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Отступ между автором и текстом */
+    justify-content: flex-start;
+}
+
+/* Аватарка автора */
+.author-avatar {
+    margin-right: 10px; /* Отступ между аватаром и именем */
+}
+
+.author-avatar img {
+    width: 40px; /* Размер аватарки */
+    height: 40px;
+    border-radius: 50%; /* Круглая аватарка */
+    object-fit: cover;
+}
+
+/* Имя автора */
+.author-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: color 0.3s ease-in-out; /* Плавный переход для цвета */
+}
+
+.author-name:hover {
+    color: #00bcd4; /* Цвет при наведении */
+}

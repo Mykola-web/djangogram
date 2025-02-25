@@ -3,14 +3,14 @@ from symtable import Class
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 
-from .models import Profile
+from .models import Profile, PostModel, PostImage
 from django.contrib.auth.hashers import make_password
-from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm
+from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
 from .services import send_activation_email, generate_activation_link
 from django.utils.http import urlsafe_base64_decode
 from django.http import HttpResponse
@@ -76,40 +76,11 @@ def edit_profile(request):
         form = EditProfileForm(request.POST,request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return redirect('profile3')
     else:
         form = EditProfileForm(instance = request.user.profile)
 
     return render(request, 'myapp/edit_profile.html', {'form': form})
-
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if not form.is_valid():
-#             print('Form errors:', form.errors)
-#             return render(request, 'myapp/login.html', {'form': form})
-#
-#         user = authenticate(
-#             username = form.cleaned_data['username'],
-#             password = form.cleaned_data['password']
-#         )
-#         if user is None:
-#             print('Authentication failed:', user)
-#             form.add_error(None, 'Invalid login credentials')
-#             return render(request, 'myapp/login.html', {'form': form})
-#
-#         print('User authenticated:', user)
-#         login(request, user)
-#
-#         # Вывод содержимого GET-запроса
-#         print('Request GET:', request.GET)
-#
-#         next_url = request.POST.get('next') or request.GET.get('next')
-#
-#         return redirect(next_url if next_url else 'feed')
-#
-#     form = LoginForm()
-#     return render(request, 'myapp/login.html', {'form': form})
 
 class LoginView(View):
     def post(self, request):
@@ -149,35 +120,62 @@ class LoginView(View):
 
 class FeedView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'myapp/feed.html')
+        posts = PostModel.objects.all().order_by("-created_at")
+        # return render(request, 'user_posts.html', {'posts': posts})
+        return render(request, 'myapp/feed.html', {'posts': posts})
 
 
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'myapp/profile.html', {'user': request.user})
+        posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
+        return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
+
 
 
 class PostingView(LoginRequiredMixin, View):
     def get(self, request):
         form = PostForm()
-        return render(request, 'myapp/post.html', {'form': form})
+        formset = PostImageFormSet()
+        return render(request, 'myapp/new_post.html', {'form': form, 'formset': formset})
 
     def post(self, request):
-            form = PostForm(request.POST, request.FILES)
-            if form.is_valid():
-                post = form.save(commit = False)
+            post_form = PostForm(request.POST)
+            formset = PostImageFormSet(request.POST, request.FILES)
+
+            if post_form.is_valid() and formset.is_valid():
+                post = post_form.save(commit = False)
                 post.author = request.user
                 post.save()
-            return redirect('profile')
+
+                images = formset.save(commit = False)
+                for image in images:
+                    image.post = post
+                    image.save()
+
+                return redirect('profile3')
+            else:
+                post_form = PostForm()
+                formset = PostImageFormSet()
 
 # @login_required
 # def feed(request):
 #     return render(request, 'myapp/feed.html')
 #
-# @login_required
-# def profile(request):
-#     return render(request, 'myapp/profile_old.html')
-#
-# @login_required
-# def make_post(request):
-#     return render(request, 'myapp/post.html')
+@login_required
+def profile(request):
+    return render(request, 'myapp/profile_old.html')
+
+class Profile3View(LoginRequiredMixin, View):
+        def get(self, request, username=None):
+            if username:
+                user = get_object_or_404(User, username=username)
+            elif request.user.is_authenticated:
+                user= request.user
+            else:
+                return HttpResponse("Вы не авторизованы", status=401)
+
+
+            is_own_profile = request.user.is_authenticated and request.user == user
+            posts = PostModel.objects.filter(author=user).order_by("-created_at")
+            return render(request, 'myapp/profile3.html', {'user': user,
+                                                           'posts': posts, 'is_own_profile': is_own_profile})

@@ -7,19 +7,20 @@
   <title>Login</title>
   {% load static %}
   <link href="{% static 'styles.css' %}" rel="stylesheet">
+  <link href="{% static 'login.css' %}" rel="stylesheet">
 </head>
 <body>
-  <div class="wrapper">
+  <div class="login_wrapper">
     <form action="{% url 'login' %}" method="POST">
       {% csrf_token %}
       <h2>Login</h2>
       <div class="input-field">
+        <label>Enter your username</label>
         {{ form.username }}
-        <label for="{{ form.username.id_for_label }}">Enter your username</label>
       </div>
       <div class="input-field">
+        <label>Enter your password</label>
         {{ form.password }}
-        <label for="{{ form.password.id_for_label }}">Enter your password</label>
       </div>
       <div class="forget">
         <label for="remember">

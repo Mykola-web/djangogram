@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Default Title{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     {% load static %}
     <link href="{% static 'styles.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <div class="content">
-        <div class="header2">
+        <div class="header">
             <h1>Djangogramm</h1>
-            <nav>
-                <ul>
-                    {% block navigation %}
-                    {% endblock %}
-                    <li><button class="white-btn" onclick="location.href='/feed'">FEED</button></li>
-                    <li><button class="white-btn" onclick="location.href='/post'">NEW POST</button></li>
-                    <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button class="red-btn" type="submit">LOGOUT</button>
-                    </form>
-                </ul>
-            </nav>
+            {% block show_nav %}
+                <nav>
+                    <ul>
+                        {% block navigation %}
+                        {% endblock %}
+                        <li><button class="white-btn" onclick="location.href='/feed'">FEED</button></li>
+                        <li><button class="white-btn" onclick="location.href='/post'">NEW POST</button></li>
+                        <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="red-btn" type="submit">LOGOUT</button>
+                        </form>
+                    </ul>
+                </nav>
+            {% endblock %}
         </div>
+    </div>
+    <div class="main-content">
         {% block content %}
 
         {% endblock %}

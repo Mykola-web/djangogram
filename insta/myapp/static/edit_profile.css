@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Изменено с center */
+    min-height: 100vh; /* Теперь body может расширяться */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    padding: 80px 0; /* Отступ сверху, чтобы не перекрывать навигацию */
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.edit_form {
+    width: 100%;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px) brightness(1.2);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.input-field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    font-size: 16px;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.submit_button {
+    margin-top 20px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+.submit_button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+#id_birth_date {
+    margin-bottom: 15px;
+}

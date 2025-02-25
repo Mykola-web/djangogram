@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
 <html>
 <head>
   <meta charset="UTF-8">
@@ -7,7 +6,7 @@
   <title>Registration</title>
   {% load static %}
   <link href="{% static 'styles.css' %}" rel="stylesheet">
-  <link href="{% static 'styles_modal.css' %}" rel="stylesheet">
+  <link href="{% static 'registration.css' %}" rel="stylesheet">
 </head>
 <body>
   <div class="wrapper">
@@ -24,30 +23,30 @@
             {% endfor %}
         </div>
     {% endif %}
-        <input type = "text" name = "username" id = "id_username" class = "custom-style" required>
         <label>Enter username</label>
+        <input type = "text" name = "username" id = "id_username" class = "custom-style" required>
       </div>
 
 
       <!-- Email -->
       <div class="input-field">
+        <label>Enter your email</label>
         <input type = "email" name = "email" id = "id_email" class = "custom-style"
                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                title="Email must be in the format: example@domain.com"
                required>
-        <label>Enter your email</label>
       </div>
 
       <!-- Create Password -->
       <div class="input-field">
-        <input type="password" name="password" id="id_password" class="custom-style" minlength="6" required>
         <label>Create your password</label>
+        <input type="password" name="password" id="id_password" class="custom-style" minlength="6" required>
       </div>
 
       <!-- Confirm Password -->
       <div class="input-field">
-        <input type="password" name="confirm_password" id="id_confirm_password" class="custom-style" minlength="6" required>
         <label>Confirm your password</label>
+        <input type="password" name="confirm_password" id="id_confirm_password" class="custom-style" minlength="6" required>
       </div>
       <div id="passwordError" style="color: red;"></div>
 

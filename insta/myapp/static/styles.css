@@ -10,23 +10,35 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 /***************************MY STYLES********************************************/
+.header {
+    position: fixed;                /* Фиксируем панель сверху */
+    top: 0;                          /* Прикрепляем к верхнему краю */
+    left: 0;                         /* Прикрепляем к левому краю */
+    width: 100%;                     /* Ширина на всю страницу */
+    background: rgba(51, 51, 51, 0.2); /* Полупрозрачный темный фон */
+    backdrop-filter: blur(10px);     /* Размытие фона */
+    -webkit-backdrop-filter: blur(10px); /* Для Safari */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px; /* Увеличенный радиус для мягкости */
+    margin-bottom: 0;      /* Убираем нижний отступ */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Легкая граница */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Мягкая тень */
+    z-index: 1000;          /* Чтобы панель была поверх контента */
+}
 
-.header2 {
-    background: #333;       /* Темный фон */
-    color: white;           /* Белый текст */
-    padding: 15px 20px;     /* Отступы */
-    display: flex;          /* Размещаем элементы в строку */
-    justify-content: space-between; /* Распределяем по краям */
-    align-items: center;    /* Выравниваем по центру */
-    border-radius: 10px;
-    margin-bottom: 20px;
+.main-content {
+    padding-top: 80px;       /* Добавляем отступ сверху, чтобы контент не перекрывался панелью */
 }
 
 nav ul {
-    list-style: none;       /* Убираем маркеры списка */
+    list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;          /* Размещаем ссылки в строку */
+    display: flex;
 }
 
 nav ul li {
@@ -35,29 +47,33 @@ nav ul li {
 
 nav ul li a {
     color: white;
-    text-decoration: none;  /* Убираем подчеркивание */
+    text-decoration: none;
     font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
 }
 
 nav ul li a:hover {
-    text-decoration: underline; /* Подчеркиваем при наведении */
+    background: rgba(255, 255, 255, 0.2); /* Легкое свечение при наведении */
+    text-decoration: none;
 }
 
-.white-btn {
-    background-color: white;
-    color: black;
+.white-btn, .red-btn {
+    background: rgba(255, 255, 255, 0.2); /* Прозрачный белый фон */
+    backdrop-filter: blur(10px); /* Размытие фона */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 10px 15px;
+    border-radius: 10px;
     font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    color: white;
 }
 
-.red-btn {
-    background-color: white;
-    color: red;
-    font-weight: 600;
+.white-btn:hover, .red-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.red-btn:hover, .white-btn:hover {
-    background-color: lightgray;
-}
 /***************************MY STYLES********************************************/
 
 * {
@@ -68,6 +84,8 @@ nav ul li a:hover {
 }
 
 body {
+  margin: 0;
+  padding-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,155 +97,7 @@ body {
   animation: changeBackground 160s steps(1) infinite;
 }
 
-/* Определяем анимацию смены фоновых изображений */
 @keyframes changeBackground {
   0% {
-    background-image: url('/static/images/bg1.jpg');
-  }
-  33% {
-    background-image: url('/static/images/bg2.jpg');
-  }
-  66% {
-    background-image: url('/static/images/bg3.jpg');
-  }
-  100% {
-    background-image: url('/static/images/bg4.jpg');
-  }
-}
+    background-image: url('/static/images/profile_bg.jpg');}
 
-.wrapper {
-  width: 400px;
-  border-radius: 8px;
-  padding: 30px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #fff;
-}
-
-.input-field {
-  position: relative;
-  border-bottom: 2px solid #ccc;
-  margin: 15px 0;
-}
-
-.input-field label {
-  position: absolute;
-  top: -20%;
-  left: 0;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 16px;
-  pointer-events: none;
-  transition: 0.15s ease;
-}
-
-.input-field input,
-.input-field select,
-.input-field textarea {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  color: #fff;
-
-}
-
-.input-field input:focus~label,
-.input-field input:valid~label,
-.input-field select:focus~label,
-.input-field select:valid~label,
-.input-field textarea:focus~label,
-.input-field textarea:valid~label {
-  font-size: 0.8rem;
-  top: 10px;
-  transform: translateY(-120%);
-}
-
-.input-field input[type="file"] {
-  padding: 5px;
-}
-
-.input-field input[type="file"] + label {
-  display: block;
-  margin-top: -30px;
-}
-
-.input-field input[type="file"]:focus~label,
-.input-field input[type="file"]:valid~label {
-  font-size: 0.8rem;
-  top: 10px;
-  transform: translateY(-120%);
-}
-
-.forget {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 25px 0 35px 0;
-  color: #fff;
-}
-
-#remember {
-  accent-color: #fff;
-}
-
-.forget label {
-  display: flex;
-  align-items: center;
-}
-
-.forget label p {
-  margin-left: 8px;
-}
-
-.wrapper a {
-  color: #efefef;
-  text-decoration: none;
-}
-
-.wrapper a:hover {
-  text-decoration: underline;
-}
-
-button {
-  background: #fff;
-  color: #000;
-  font-weight: 600;
-  border: none;
-  padding: 12px 20px;
-  cursor: pointer;
-  border-radius: 3px;
-  font-size: 16px;
-  border: 2px solid transparent;
-  transition: 0.3s ease;
-}
-
-button:hover {
-  color: #fff;
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.register {
-  text-align: center;
-  margin-top: 30px;
-  color: #fff;
-}
-
-.d-flex justify-content-center{
-  display: flex;
-  gap: 10px; /* Отступ между элементами */
-}

@@ -1,0 +1,45 @@
+{% extends 'myapp/base.html' %}
+
+{% block title%}Profile{% endblock %}
+
+{% block extra_css%}
+    {% load static %}
+    <link href="{% static 'profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block navigation %}
+    {% if is_own_profile %}
+    <li><button class="white-btn" onclick="location.href='/profile/edit'">EDIT PROFILE</button></li>
+	{% else %}
+	<li><button class="white-btn" onclick="location.href='/profile3/'">MY PROFILE</button></li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="profile_wrapper">
+		<div class="profile-card">
+			    <div class="avatar-container">
+					<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="User Avatar" class="avatar">
+				</div>
+				<div class="user-info">
+					<h2 class="username">{{ user.username }}</h2>
+					<p class="bio">{{ user.profile.bio | default:'Some profile text' }}</p>
+				</div>
+		</div>
+		<div class="posts-container">
+			{% for post in posts %}
+				<div class="post">
+				  <p>{{ post.author }}</p>
+				  <p>{{ post.text }}</p>
+				  {% if post.images.all %}
+				  {% for image in post.images.all %}
+					<img src="{{ image.image.url }}" alt="Post Image">
+				  {% endfor %}
+				  {% endif %}
+				  <p>{{ post.created_at }}</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

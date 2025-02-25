@@ -28,11 +28,14 @@ class Profile(models.Model):
 class PostModel(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'post')
     text = models.TextField(blank=True)
-    image = models.ImageField(upload_to = 'posts/', blank = True, null = True)
     created_at = models.DateTimeField(auto_now_add = True)
+    tags = models.ManyToManyField('TagModel', related_name='posts')
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+
+    objects = models.Manager()
 
     def clean(self):
-        if not self.text and not self.image:
+        if not self.text and not self.images:
             logger.warning(f"User {self.author} attempted to create an empty post.")
             print("❌ Error: Cannot create an empty post!")
             # No `raise ValidationError()` to avoid crashing the page
@@ -43,4 +46,15 @@ class PostModel(models.Model):
 
     def __str__(self):
         return (f"Post by {self.author.username}:"
-                f" {'Text and image post' if self.text and self.image else 'Simple post'}")
+                f" {'Text and image post' if self.text and self.images else 'Simple post'}")
+
+
+class TagModel(models.Model):
+    name = models.CharField(max_length = 50, unique = True)
+
+class PostImage(models.Model):
+    post = models.ForeignKey(PostModel, on_delete = models.CASCADE, related_name = 'images')
+    image = models.ImageField(upload_to = 'post_images/')
+
+    def __str__(self):
+        return f'Image for {self.post.author.username}' if self.post else "Orphaned Image"
