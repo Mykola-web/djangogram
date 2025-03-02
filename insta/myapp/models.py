@@ -52,6 +52,9 @@ class PostModel(models.Model):
 class TagModel(models.Model):
     name = models.CharField(max_length = 50, unique = True)
 
+    def __str__(self):
+        return f'{self.name}'
+
 class PostImage(models.Model):
     post = models.ForeignKey(PostModel, on_delete = models.CASCADE, related_name = 'images')
     image = models.ImageField(upload_to = 'post_images/')

@@ -1,94 +1,89 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>PROFILE PAGE</title>
-    <meta charset="utf-8">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	{% load static %}
-    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
-</head>
-<body>
+{% extends 'myapp/base.html' %}
 
-</body>
-</html>
-		<!-- Wrapper -->
-			<div id="wrapper">
-				    <div class="header2">
-						<h1>Djangogramm</h1>
-						<nav>
-							<ul>
-								<li><button class="white-btn" onclick="location.href='/feed'">FEED</button></li>
-								<li><button class="white-btn" onclick="location.href='/post'">NEW POST</button></li>
-								<form method="post" action="{% url 'logout' %}">
-								{% csrf_token %}
-								<button type="submit">LOGOUT</button>
-								</form>
-							</ul>
-						</nav>
-					</div>
+{% block title%}Profile{% endblock %}
 
-				<!-- Header -->
-						<header id="header">
-							<span class="avatar">
-								<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
-									 alt=""
-									 width="173"
-									 height="178">
-							</span>
-						</header>
-						<h1 style="text-align: center;">{{ user.profile.bio | default:'Some profile text' }}</h1>
-						<ul class="icons" style="text-align: center;"><li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
-						</ul></header><!-- Main --><section id="main"><!-- Thumbnails --><section class="thumbnails">
-							<div class="posts-container">
-								{% for post in posts %}
-									<div class="post">
-									  <p>{{ post.author }}</p>
-									  <p>{{ post.text }}</p>
-										{% if post.images.all %}
-										{% for image in post.images.all %}
-											<img src="{{ image.image.url }}" alt="Post Image">
-										{% endfor %}
-										{% endif %}
-									  <p>{{ post.created_at }}</p>
-									</div>
-								{% endfor %}
-							</div>
-<!--						<div>-->
-<!--							<a href="static/images/fulls/01.jpg">-->
-<!--								<img src="static/images/bg1.jpg" alt="" width="346" height="494"><h3>Lorem ipsum dolor sit amet1</h3>-->
-<!--							</a>-->
-<!--							<a href="static/images/fulls/02.jpg">-->
-<!--								<img src="static/images/thumbs/02.jpg" alt="" width="346" height="239"><h3>Lorem ipsum dolor sit amet2</h3>-->
-<!--							</a>-->
-<!--						</div>-->
-<!--						<div>-->
-<!--							<a href="static/images/fulls/03.jpg">-->
-<!--								<img src="static/images/thumbs/03.jpg" alt="" width="346" height="239"><h3>Lorem ipsum dolor sit amet3</h3>-->
-<!--							</a>-->
-<!--							<a href="static/images/fulls/04.jpg">-->
-<!--								<img src="static/images/thumbs/04.jpg" alt="" width="346" height="339"><h3>Lorem ipsum dolor sit amet4</h3>-->
-<!--							</a>-->
-<!--							<a href="static/images/fulls/05.jpg">-->
-<!--								<img src="static/images/thumbs/05.jpg" alt="" width="346" height="299"><h3>Lorem ipsum dolor sit amet5</h3>-->
-<!--							</a>-->
-<!--						</div>-->
-<!--						<div>-->
-<!--							<a href="static/images/fulls/06.jpg">-->
-<!--								<img src="static/images/thumbs/06.jpg" alt="" width="346" height="339"><h3>Lorem ipsum dolor sit amet6</h3>-->
-<!--							</a>-->
-<!--							<a href="static/images/fulls/07.jpg">-->
-<!--								<img src="static/images/thumbs/07.jpg" alt="" width="346" height="504"><h3>Lorem ipsum dolor sit amet7</h3>-->
-<!--							</a>-->
-<!--						</div>-->
+{% block extra_css%}
+    {% load static %}
+    <link href="{% static 'profile-feed.css' %}" rel="stylesheet">
+{% endblock %}
 
-							</section></section><!-- Footer --></div>
-		<div class="copyright">
-			Made with: <a href="https://templated.co/">Templated.co</a>
+{% block navigation %}
+    {% if is_own_profile %}
+    <li><button class="white-btn" onclick="location.href='/profile/edit'">EDIT PROFILE</button></li>
+	{% else %}
+	<li><button class="white-btn" onclick="location.href='/profile/'">MY PROFILE</button></li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div class="profile_wrapper">
+		<div class="profile-card">
+			    <div class="avatar-container">
+					<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="User Avatar" class="avatar">
+				</div>
+				<div class="user-info">
+					<h2 class="username">{{ user.username }}</h2>
+					<p class="bio">{{ user.profile.bio | default:'Some profile text' }}</p>
+				</div>
 		</div>
-		<!-- Scripts -->
-<!--			<script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.poptrox.min.js"></script><script src="assets/js/skel.min.js"></script><script src="assets/js/main.js"></script></body></html>-->
+		<div class="posts-container">
+			{% for post in posts %}
+				<div class="post">
+				  <div class="post-author">
+					  <a href="/profile/{{ post.author.username }}" class="author-avatar">
+						  <img src="{{ post.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="Author Avatar">
+					  </a>
+					  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>
+				  </div>
+				  <p>{{ post.text }}</p>
+				  <div class="tags-container">
+						{% for tag in post.tags.all %}
+							<span><a href="">{{ tag.name }}</a></span>
+						{% empty %}
+							<p>No tags available</p>
+						{% endfor %}
+				  </div>
+				  {% if post.images.all %}
+				  {% for image in post.images.all %}
+					<img src="{{ image.image.url }}" alt="Post Image">
+				  {% endfor %}
+				  {% endif %}
+					<div class="post-footer">
+						<p>{{ post.created_at }}</p>
+						<div class="like-button-container">
+							<button class="like-button" onclick="likePost({{ post.id }}, this)">
+								<img src="/static/images/like.png" alt="Like" class="unliked" {% if request.user in post.likes.all %}style="display: none;"{% endif %}>
+								<img src="/static/images/liked.png" alt="Liked" class="liked" {% if request.user not in post.likes.all %}style="display: none;"{% endif %}>
+							</button>
+							<a href="#" class="likes-count" onclick="showLikes({{ post.id }})">{{ post.likes.count }}</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<script>
+		function likePost(postId, button) {
+			fetch(`/like_post/${postId}/`, {
+				method: 'POST',
+				headers: {
+					'X-CSRFToken': '{{ csrf_token }}',
+					'Content-Type': 'application/json'
+				},
+			})
+			.then(response => response.json())
+			.then(data => {
+				button.classList.toggle('liked');
+				const likesCount = button.nextElementSibling;
+				likesCount.textContent = data.likes_count;
+				if (button.classList.contains('liked')) {
+					button.querySelector('.unliked').style.display = 'none';
+					button.querySelector('.liked').style.display = 'block';
+				} else {
+					button.querySelector('.unliked').style.display = 'block';
+					button.querySelector('.liked').style.display = 'none';
+				}
+			});
+		}
+	</script>
+{% endblock %}

@@ -1,101 +1,97 @@
 {% extends 'myapp/base.html' %}
 
-{% block title%}Feed{% endblock %}
+{% block title %}Feed{% endblock %}
 
-{% block extra_css%}
-    {% load static %}
-    <link href="{% static 'edit_profile.css' %}" rel="stylesheet">
+{% block extra_css %}
+{% load static %}
+<link href="{% static 'edit_profile.css' %}" rel="stylesheet">
 {% endblock %}
+
 {% block navigation %}
-
-  <li><button class="white-btn" onclick="location.href='/profile3'">PROFILE</button></li>
-
+<li><button class="white-btn" onclick="location.href='/profile'">PROFILE</button></li>
 {% endblock %}
 
 {% block content %}
-
-  <div class="wrapper">
+<div class="wrapper">
   <form class="edit_form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="input-field">
-      <label for = "id_first_name">First Name:</label>
+      <label for="id_first_name">First Name:</label>
       {{ form.first_name }}
       {% if form.first_name.errors %}
-        <ul>
-          {% for error in form.first_name.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.first_name.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
     </div>
 
     <div class="input-field">
-      <label for = "id_last_name">Last Name:</label>
+      <label for="id_last_name">Last Name:</label>
       {{ form.last_name }}
       {% if form.last_name.errors %}
-        <ul>
-          {% for error in form.last_name.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.last_name.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
     </div>
 
     <div class="input-field">
-      <label for = "id_gender">Gender:</label>
+      <label for="id_gender">Gender:</label>
       {{ form.gender }}
       {% if form.gender.errors %}
-        <ul>
-          {% for error in form.gender.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.gender.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
       <br></br>
     </div>
 
-    <div class="input-field" >
-      <label for = "id_avatar">Avatar:</label>
+    <div class="input-field">
+      <label for="id_avatar">Avatar:</label>
       {{ form.avatar }}
       {% if form.avatar.errors %}
-        <ul>
-          {% for error in form.avatar.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.avatar.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
       <br></br>
     </div>
 
-      <div class="input-field">
-      <label for = "id_bio">Bio:</label>
+    <div class="input-field">
+      <label for="id_bio">Bio:</label>
       {{ form.bio }}
       {% if form.bio.errors %}
-        <ul>
-          {% for error in form.bio.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.bio.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
     </div>
 
     <div>
-    <label for="id_birth_date">Birth date:</label>
-    <input type="date" name="birth_date" id="id_birth_date" value="{{ form.birth_date.value }}">
+      <label for="id_birth_date">Birth date:</label>
+      <input type="date" name="birth_date" id="id_birth_date" value="{{ form.birth_date.value }}">
       {% if form.birth_date.errors %}
-        <ul>
-          {% for error in form.birth_date.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+      <ul>
+        {% for error in form.birth_date.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
     </div>
 
-    <button class="submit_button" type = "submit">Save changes</button>
+    <button class="submit_button" type="submit">Save changes</button>
   </form>
-
-  </div>
+</div>
 </body>
-
 {% endblock %}

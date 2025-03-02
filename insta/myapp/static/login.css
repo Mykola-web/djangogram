@@ -46,7 +46,7 @@ form {
     color: white;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 5px; /* Добавляем отступ между лейблом и полем */
+    margin-bottom: 5px;
 }
 
 input, select, textarea {

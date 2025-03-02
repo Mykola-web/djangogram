@@ -1,5 +1,6 @@
+/* Profile styles */
 .profile_wrapper {
-    width: 70%;
+    max-width: 70%;
     margin: 0 auto;
     padding: 20px;
     display: flex;
@@ -64,12 +65,17 @@
     margin-top: 5px;
 }
 
-/* Container to ensure the profile does not overflow */
+/* Container for the feed of posts */
+.feed_wrapper {
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-/* -----------------------------------POSTS---------------------------------- */
-.feed_post_container {
-    width: 40%;
-    max-width: 1200px;
+/* Container for posts */
+.feed_post_container, .posts-container {
+    width: 80%; /* Increased width by 10% */
+    max-width: 1300px; /* Increased max-width by 100px */
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -77,21 +83,18 @@
     gap: 20px;
 }
 
-/* Style for each post with glassmorphism */
+/* -----------------------------------POSTS-------------------------*/
 .post {
     width: 100%;
     background: rgba(0, 0, 0, 0.3); /* Semi-transparent black background */
-    padding: 25px 20px; /* More padding for better readability */
-    border-radius: 15px; /* Larger radius for softer corners */
+    padding: 25px 20px; /* Larger paddings for reading comfort */
+    border-radius: 15px; /* Corner radius */
     text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    backdrop-filter: blur(10px); /* Background blur */
+    backdrop-filter: blur(10px); /* Blurred background */
     -webkit-backdrop-filter: blur(10px); /* For Safari */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
-    font-family: 'Roboto', sans-serif; /* Convenient font */
-    color: white; /* White text color */
-    line-height: 1.6; /* Line height for better readability */
 }
 
 /* Images in posts */
@@ -99,26 +102,27 @@
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 15px; /* Margin below for better spacing between image and text */
+    margin-bottom: 15px; /* Bottom margin */
 }
 
 /* Post headings */
 .post h3 {
-    font-size: 22px; /* Increase font size for headings */
+    font-size: 22px; /* Font size for headings */
     margin-top: 15px;
     font-weight: bold;
-    text-transform: uppercase; /* Uppercase for headings */
-    letter-spacing: 1px; /* Slight increase in letter spacing for readability */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 1px; /* Increase letter spacing */
 }
 
 /* Additional text in posts */
 .post p {
     font-size: 16px;
     margin-top: 10px;
-    font-weight: 300; /* Light font weight for text */
-    text-align: left; /* Left-align text */
+    font-weight: 300; /* Light font */
+    text-align: left; /* Left-aligned text */
 }
 
+/* Style for post author information */
 .post-author {
     display: flex;
     align-items: center;
@@ -144,13 +148,13 @@
     font-weight: bold;
     color: #fff;
     text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease-in-out; /* Smooth color transition */
 }
 
 .author-name:hover {
     color: #00bcd4; /* Color on hover */
 }
 
+/* Footer for posts */
 .post-footer {
     display: flex;
     justify-content: space-between;
@@ -158,6 +162,7 @@
     gap: 10px;
 }
 
+/* Like button container */
 .like-button-container {
     display: flex;
     align-items: center;
@@ -182,6 +187,7 @@
     position: relative;
 }
 
+/* Like counter */
 .likes-count {
     font-size: 16px;
     color: white;
@@ -189,6 +195,7 @@
     cursor: pointer;
 }
 
+/* Tags container */
 .tags-container {
     display: flex;
     flex-wrap: wrap;

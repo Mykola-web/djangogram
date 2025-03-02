@@ -2,15 +2,18 @@
 
 {% block title %} New post{% endblock %}
 
-----------------
-{% block extra_css%}
+
+
+{% block extra_css %}
     {% load static %}
-    <link href="{% static 'new_post.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <link href="{% static 'new_post.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block navigation %}
 
-  <li><button class="white-btn" onclick="location.href='/profile3'">PROFILE</button></li>
+  <li><button class="white-btn" onclick="location.href='/profile'">PROFILE</button></li>
 
 {% endblock %}
 
@@ -18,18 +21,64 @@
 
 <div class="wrapper">
   <div class="posts-container">
-            <h2 >Make new post</h2>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
+        <h2>Make new post</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if form.errors %}
+                <div class="errorlist">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+            <h3>Add ap to 3 images</h3>
+
+            {{ formset.management_form }}
+            {% for form in formset %}
                 {{ form.as_p }}
-                <h3>Add ap to 3 images</h3>
-                {{ formset.management_form }}
-                {% for form in formset %}
-                    {{ form.as_p }}
-                {% endfor %}
-                <button type="submit">CREATE POST</button>
-            </form>
-  </div>
-</div>
+            {% endfor %}
+
+            <button type="submit">CREATE POST</button>
+        </form>
+<!--      <form method="POST" enctype="multipart/form-data"-->
+<!--            <div class="input-field">-->
+<!--              <label for="id_text">Post text:</label>-->
+<!--              {{ form.text }}-->
+<!--              {% if form.text.errors %}-->
+<!--              <ul>-->
+<!--                {% for error in form.text.errors %}-->
+<!--                <li>{{ error }}</li>-->
+<!--                {% endfor %}-->
+<!--              </ul>-->
+<!--              {% endif %}-->
+<!--            </div>-->
+<!--            <div class="input-field">-->
+<!--              <label for="tags">Post tags:</label>-->
+<!--              {{ form.tags }}-->
+<!--              {% if form.tags.errors %}-->
+<!--              <ul>-->
+<!--                {% for error in form.tags.errors %}-->
+<!--                <li>{{ error }}</li>-->
+<!--                {% endfor %}-->
+<!--              </ul>-->
+<!--              {% endif %}-->
+<!--            </div>-->
+<!--      </form>-->
+    </div>
+
+ </div>
+    <script>
+    $(document).ready(function() {
+        $('.select2-chips').select2({
+            tags: true,
+            tokenSeparators: [',', ' '],
+            placeholder: "choose or input tags",
+            allowClear: true
+        });
+    });
+</script>
+
+
 
 {% endblock %}

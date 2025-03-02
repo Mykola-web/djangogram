@@ -1,11 +1,11 @@
-/* Контейнер для ленты постов */
+/* Container for the feed of posts */
 .feed_wrapper {
     max-width: 70%;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Контейнер для постов */
+/* Container for posts */
 .feed_post_container {
     width: 70%;
     max-width: 1200px;
@@ -16,77 +16,128 @@
     gap: 20px;
 }
 
-/* Стиль для каждого поста с глассморфизмом */
+/* -----------------------------------POSTS-------------------------*/
+
 .post {
     width: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Полупрозрачный черный фон */
-    padding: 25px 20px; /* Больше отступов для удобства чтения */
-    border-radius: 15px; /* Радиус углов */
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent black background */
+    padding: 25px 20px; /* Larger paddings for reading comfort */
+    border-radius: 15px; /* Corner radius */
     text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    backdrop-filter: blur(10px); /* Размытие фона */
-    -webkit-backdrop-filter: blur(10px); /* Для Safari */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Легкая граница */
-    font-family: 'Roboto', sans-serif; /* Удобный шрифт */
-    color: white; /* Белый цвет текста */
-    line-height: 1.6; /* Междустрочный интервал */
+    backdrop-filter: blur(10px); /* Blurred background */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+    font-family: 'Roboto', sans-serif; /* Comfortable font */
+    color: white; /* White text color */
+    line-height: 1.6; /* Line spacing */
 }
 
-/* Изображения в постах */
+/* Images in posts */
 .post img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 15px; /* Отступ снизу */
+    margin-bottom: 15px; /* Bottom margin */
 }
 
-/* Заголовки в постах */
+/* Headings in posts */
 .post h3 {
-    font-size: 22px; /* Размер шрифта для заголовков */
+    font-size: 22px; /* Font size for headings */
     margin-top: 15px;
     font-weight: bold;
-    text-transform: uppercase; /* Заглавные буквы */
-    letter-spacing: 1px; /* Увеличение межбуквенного интервала */
+    text-transform: uppercase; /* Uppercase letters */
+    letter-spacing: 1px; /* Increase letter spacing */
 }
 
-/* Дополнительный текст в постах */
+/* Additional text in posts */
 .post p {
     font-size: 16px;
     margin-top: 10px;
-    font-weight: 300; /* Легкий шрифт */
-    text-align: left; /* Текст по левому краю */
+    font-weight: 300; /* Light font */
+    text-align: left; /* Left-aligned text */
 }
 
-/* Стиль для информации об авторе поста */
+/* Style for post author information */
 .post-author {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Отступ между автором и текстом */
+    margin-bottom: 10px; /* Margin between author and text */
     justify-content: flex-start;
 }
 
-/* Аватарка автора */
+/* Author's avatar */
 .author-avatar {
-    margin-right: 10px; /* Отступ между аватаром и именем */
+    margin-right: 10px; /* Margin between avatar and name */
 }
 
 .author-avatar img {
-    width: 40px; /* Размер аватарки */
+    width: 40px; /* Avatar size */
     height: 40px;
-    border-radius: 50%; /* Круглая аватарка */
+    border-radius: 50%; /* Round avatar */
     object-fit: cover;
 }
 
-/* Имя автора */
+/* Author name */
 .author-name {
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    text-decoration: none; /* Убираем подчеркивание */
-    transition: color 0.3s ease-in-out; /* Плавный переход для цвета */
+    text-decoration: none; /* Remove underline */
 }
 
 .author-name:hover {
-    color: #00bcd4; /* Цвет при наведении */
+    color: #00bcd4; /* Color on hover */
+}
+
+/* Footer for posts */
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Like button container */
+.like-button-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.like-button img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Like counter */
+.likes-count {
+    font-size: 16px;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Tags container */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags-container span {
+    display: inline-block;
 }

@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from .models import Profile, PostModel, PostImage
@@ -13,14 +14,14 @@ from django.contrib.auth.hashers import make_password
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
 from .services import send_activation_email, generate_activation_link
 from django.utils.http import urlsafe_base64_decode
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.tokens import default_token_generator
 from django.views import View
 from django.db import IntegrityError
+import logging
+from django.views.decorators.http import require_POST
 
-# def home(request):
-#     return render(request, 'myapp/home.html')
-
+logger = logging.getLogger(__name__)
 
 class HomeView(TemplateView):
     template_name = 'myapp/home.html'
@@ -76,7 +77,7 @@ def edit_profile(request):
         form = EditProfileForm(request.POST,request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return redirect('profile3')
+            return redirect('profile')
     else:
         form = EditProfileForm(instance = request.user.profile)
 
@@ -128,6 +129,8 @@ class FeedView(LoginRequiredMixin, View):
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
+        post = PostModel.objects.first()  # Или используй .filter() для нахождения поста
+        print(post.tags.all())
         return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
 
 
@@ -146,36 +149,44 @@ class PostingView(LoginRequiredMixin, View):
                 post = post_form.save(commit = False)
                 post.author = request.user
                 post.save()
+                post_form.save_m2m()
 
                 images = formset.save(commit = False)
                 for image in images:
                     image.post = post
                     image.save()
 
-                return redirect('profile3')
+                return redirect('profile')
             else:
-                post_form = PostForm()
-                formset = PostImageFormSet()
+                return render(request, 'myapp/new_post.html',
+                              {'form': post_form, 'formset' : formset})
 
-# @login_required
-# def feed(request):
-#     return render(request, 'myapp/feed.html')
-#
 @login_required
 def profile(request):
     return render(request, 'myapp/profile_old.html')
 
-class Profile3View(LoginRequiredMixin, View):
-        def get(self, request, username=None):
+class profileView(LoginRequiredMixin, View):
+        def get(self, request, username = None):
+            # Here it is decided whose page will be opened, the current user or another
             if username:
                 user = get_object_or_404(User, username=username)
             elif request.user.is_authenticated:
                 user= request.user
             else:
-                return HttpResponse("Вы не авторизованы", status=401)
-
+                return HttpResponse("The user is not authorized", status = 401)
 
             is_own_profile = request.user.is_authenticated and request.user == user
-            posts = PostModel.objects.filter(author=user).order_by("-created_at")
-            return render(request, 'myapp/profile3.html', {'user': user,
+            posts = PostModel.objects.filter(author = user).order_by("-created_at")
+            return render(request, 'myapp/profile.html', {'user': user,
                                                            'posts': posts, 'is_own_profile': is_own_profile})
+
+
+class LikePostView(LoginRequiredMixin, View):
+    @method_decorator(require_POST)
+    def post(self, request, post_id):
+        post = get_object_or_404(PostModel, id=post_id)
+        if request.user in post.likes.all():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        return JsonResponse({'likes_count': post.likes.count()})

@@ -1,6 +1,5 @@
-from ast import increment_lineno
-
 from django import forms
+from django_select2.forms import Select2MultipleWidget
 from django.forms import inlineformset_factory
 from .models import Profile, PostModel, PostImage, TagModel
 from django.core.validators import MinLengthValidator
@@ -52,11 +51,14 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = PostModel
         fields = ['text', 'tags']
+        widgets = {
+            'tags': Select2MultipleWidget(attrs={
+                'data-placeholder': 'Выберите теги...',
+                'style': 'width: 100%;',
+                'class': 'select2-chips'
+            }),
+        }
 
-    tags = forms.ModelMultipleChoiceField(
-        queryset=TagModel.objects.all(),
-        widget=forms.SelectMultiple
-    )
 
 class PostImageForm(forms.ModelForm):
     class Meta:
