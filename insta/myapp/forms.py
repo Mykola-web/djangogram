@@ -53,7 +53,7 @@ class PostForm(forms.ModelForm):
         fields = ['text', 'tags']
         widgets = {
             'tags': Select2MultipleWidget(attrs={
-                'data-placeholder': 'Выберите теги...',
+                'data-placeholder': 'Choose tags...',
                 'style': 'width: 100%;',
                 'class': 'select2-chips'
             }),
@@ -65,4 +65,4 @@ class PostImageForm(forms.ModelForm):
         model = PostImage
         fields = ['image']
 
-PostImageFormSet = inlineformset_factory(PostModel, PostImage, form = PostImageForm, extra = 3)
+PostImageFormSet = inlineformset_factory(PostModel, PostImage, form = PostImageForm, extra = 3, can_delete=False)

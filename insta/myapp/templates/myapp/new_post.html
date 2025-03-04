@@ -1,4 +1,5 @@
 {% extends 'myapp/base.html' %}
+{% load widget_tweaks %}
 
 {% block title %} New post{% endblock %}
 
@@ -23,9 +24,30 @@
   <div class="posts-container">
         <h2>Make new post</h2>
 
-        <form method="POST" enctype="multipart/form-data">
+       <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="input-field">
+              <label for="id_text">Post text:</label>
+              {{ form.text|attr:"placeholder: write your story here" }}
+              {% if form.text.errors %}
+              <ul>
+                {% for error in form.text.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="input-field">
+              <label for="tags">Post tags:</label>
+              {{ form.tags }}
+              {% if form.tags.errors %}
+              <ul>
+                {% for error in form.tags.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
             {% if form.errors %}
                 <div class="errorlist">
                     {{ form.errors }}
@@ -41,30 +63,6 @@
 
             <button type="submit">CREATE POST</button>
         </form>
-<!--      <form method="POST" enctype="multipart/form-data"-->
-<!--            <div class="input-field">-->
-<!--              <label for="id_text">Post text:</label>-->
-<!--              {{ form.text }}-->
-<!--              {% if form.text.errors %}-->
-<!--              <ul>-->
-<!--                {% for error in form.text.errors %}-->
-<!--                <li>{{ error }}</li>-->
-<!--                {% endfor %}-->
-<!--              </ul>-->
-<!--              {% endif %}-->
-<!--            </div>-->
-<!--            <div class="input-field">-->
-<!--              <label for="tags">Post tags:</label>-->
-<!--              {{ form.tags }}-->
-<!--              {% if form.tags.errors %}-->
-<!--              <ul>-->
-<!--                {% for error in form.tags.errors %}-->
-<!--                <li>{{ error }}</li>-->
-<!--                {% endfor %}-->
-<!--              </ul>-->
-<!--              {% endif %}-->
-<!--            </div>-->
-<!--      </form>-->
     </div>
 
  </div>

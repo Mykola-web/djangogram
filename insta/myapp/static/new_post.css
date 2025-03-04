@@ -35,6 +35,11 @@ form {
     display: flex;
     flex-direction: column;
 }
+.input-field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
 
 input, select, textarea {
     padding: 12px;

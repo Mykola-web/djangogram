@@ -122,14 +122,13 @@ class LoginView(View):
 class FeedView(LoginRequiredMixin, View):
     def get(self, request):
         posts = PostModel.objects.all().order_by("-created_at")
-        # return render(request, 'user_posts.html', {'posts': posts})
         return render(request, 'myapp/feed.html', {'posts': posts})
 
 
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
-        post = PostModel.objects.first()  # Или используй .filter() для нахождения поста
+        post = PostModel.objects.first()
         print(post.tags.all())
         return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
 
