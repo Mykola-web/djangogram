@@ -11,7 +11,7 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user = instance)
 
-@receiver(pre_delete, sender=PostModel)
+@receiver(pre_delete, sender = PostModel)
 def delete_image(sender, instance, **kwargs):
     if instance.image:
         image_path = instance.image.path

@@ -160,15 +160,12 @@ class PostingView(LoginRequiredMixin, View):
                 return render(request, 'myapp/new_post.html',
                               {'form': post_form, 'formset' : formset})
 
-@login_required
-def profile(request):
-    return render(request, 'myapp/profile_old.html')
 
 class profileView(LoginRequiredMixin, View):
         def get(self, request, username = None):
             # Here it is decided whose page will be opened, the current user or another
             if username:
-                user = get_object_or_404(User, username=username)
+                user = get_object_or_404(User, username = username)
             elif request.user.is_authenticated:
                 user= request.user
             else:

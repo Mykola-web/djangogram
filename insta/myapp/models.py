@@ -1,23 +1,20 @@
 import logging
-import os
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import ForeignKey
-from django.dispatch import receiver
 
 logger = logging.getLogger(__name__)
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name='profile')
-    first_name = models.CharField(max_length=20, blank=True)
-    last_name = models.CharField(max_length=20, blank=True)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'profile')
+    first_name = models.CharField(max_length = 20, blank = True)
+    last_name = models.CharField(max_length = 20, blank = True)
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
     ]
-    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='male')
+    gender = models.CharField(max_length = 6, choices = GENDER_CHOICES, default = 'male')
     avatar = models.ImageField(upload_to = 'avatars/', default = 'avatars/default_avatar.png', blank = True)
     birth_date = models.DateField(blank = True, null = True)
     bio = models.TextField(blank = True, null = True)
@@ -25,12 +22,16 @@ class Profile(models.Model):
     def __str__(self):
         return f"Profile of {self.user.username}"
 
+    class Meta:
+        app_label = 'myapp'
+
+
 class PostModel(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'post')
-    text = models.TextField(blank=True)
+    text = models.TextField(blank = True)
     created_at = models.DateTimeField(auto_now_add = True)
-    tags = models.ManyToManyField('TagModel', related_name='posts')
-    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+    tags = models.ManyToManyField('TagModel', related_name = 'posts')
+    likes = models.ManyToManyField(User, related_name = 'liked_posts', blank = True)
 
     objects = models.Manager()
 
