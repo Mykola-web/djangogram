@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
-class Profile(models.Model):
+class ProfileModel(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'profile')
     first_name = models.CharField(max_length = 20, blank = True)
     last_name = models.CharField(max_length = 20, blank = True)
@@ -19,6 +19,8 @@ class Profile(models.Model):
     birth_date = models.DateField(blank = True, null = True)
     bio = models.TextField(blank = True, null = True)
 
+    objects = models.Manager()
+
     def __str__(self):
         return f"Profile of {self.user.username}"
 
@@ -30,7 +32,7 @@ class PostModel(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'post')
     text = models.TextField(blank = True)
     created_at = models.DateTimeField(auto_now_add = True)
-    tags = models.ManyToManyField('TagModel', related_name = 'posts')
+    tags = models.ManyToManyField('TagModel', related_name = 'posts', blank = True)
     likes = models.ManyToManyField(User, related_name = 'liked_posts', blank = True)
 
     objects = models.Manager()

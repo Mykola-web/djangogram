@@ -1,7 +1,7 @@
 from django import forms
 from django_select2.forms import Select2MultipleWidget
 from django.forms import inlineformset_factory
-from .models import Profile, PostModel, PostImage, TagModel
+from .models import ProfileModel, PostModel, PostImage, TagModel
 from django.core.validators import MinLengthValidator
 
 class RegistrationForm(forms.Form):
@@ -30,7 +30,7 @@ class RegistrationForm(forms.Form):
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = ProfileModel
         fields = ['first_name', 'last_name', 'gender', 'avatar', 'birth_date', 'bio']
         gender = forms.ChoiceField(choices = model.GENDER_CHOICES)
         birth_date = forms.DateField(

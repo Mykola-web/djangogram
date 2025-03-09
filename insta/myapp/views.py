@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from .models import Profile, PostModel, PostImage
+from .models import ProfileModel, PostModel, PostImage
 from django.contrib.auth.hashers import make_password
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
 from .services import send_activation_email, generate_activation_link
@@ -29,10 +29,14 @@ class HomeView(TemplateView):
 
 class RegisterView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
         form = RegistrationForm()
         return render(request, 'myapp/registration.html', {'form': form})
 
     def post(self, request):
+        if request.user.is_authenticated:
+            logout(request)
         form = RegistrationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -71,19 +75,27 @@ class ActivateAccount(View):
                           {'message': 'The activation link is invalid.'})
 
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
+class EditProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        form = EditProfileForm(instance = request.user.profile)
+        return render(request, 'myapp/edit_profile.html', {'form': form})
+    def post(self, request):
         form = EditProfileForm(request.POST,request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
             return redirect('profile')
-    else:
-        form = EditProfileForm(instance = request.user.profile)
+        else:
+            return render(request, 'myapp/edit_profile.html', {'form': form})
 
-    return render(request, 'myapp/edit_profile.html', {'form': form})
 
 class LoginView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            return redirect(request.GET.get('next', request.META.get('HTTP_REFERER', 'login')))
+        form = LoginForm()
+        return render(request, 'myapp/login.html', {'form': form})
+
     def post(self, request):
         if request.user.is_authenticated:
             logout(request)
@@ -94,29 +106,19 @@ class LoginView(View):
             return render(request, 'myapp/login.html', {'form': form})
 
         user = authenticate(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password']
+            username = form.cleaned_data['username'],
+            password = form.cleaned_data['password']
         )
         if user is None:
             print('Authentication failed:', user)
             form.add_error(None, 'Invalid login credentials')
             return render(request, 'myapp/login.html', {'form': form})
 
-        print('User authenticated:', user)
         login(request, user)
-
-        print('Request GET:', request.GET)
 
         next_url = request.POST.get('next') or request.GET.get('next')
 
         return redirect(next_url if next_url else 'feed')
-
-    def get(self, request):
-        if request.user.is_authenticated:
-            logout(request)
-            return redirect(request.GET.get('next', request.META.get('HTTP_REFERER', 'login')))
-        form = LoginForm()
-        return render(request, 'myapp/login.html', {'form': form})
 
 
 class FeedView(LoginRequiredMixin, View):
@@ -128,10 +130,7 @@ class FeedView(LoginRequiredMixin, View):
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
-        post = PostModel.objects.first()
-        print(post.tags.all())
         return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
-
 
 
 class PostingView(LoginRequiredMixin, View):
@@ -180,7 +179,7 @@ class profileView(LoginRequiredMixin, View):
 class LikePostView(LoginRequiredMixin, View):
     @method_decorator(require_POST)
     def post(self, request, post_id):
-        post = get_object_or_404(PostModel, id=post_id)
+        post = get_object_or_404(PostModel, id = post_id)
         if request.user in post.likes.all():
             post.likes.remove(request.user)
         else:
