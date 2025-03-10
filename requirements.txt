@@ -5,4 +5,6 @@ django-select2~=8.3.0
 django-widget-tweaks
 psycopg2
 Pillow
+gunicorn
+
 
