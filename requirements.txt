@@ -1,1 +1,4 @@
 Django~=5.1.4
+dotenv~=0.9.9
+python-dotenv~=1.0.1
+django-select2~=8.3.0

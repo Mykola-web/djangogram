@@ -60,7 +60,7 @@ class ActivateAccount(View):
     def get(self, request, uidb64, token):
         try:
             uid = urlsafe_base64_decode(uidb64).decode()
-            user = User.objects.get(pk=uid)
+            user = User.objects.get(pk = uid)
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             return render(request, 'myapp/activation.html',
                           {'message': 'The activation link is invalid or expired.'})

@@ -12,8 +12,8 @@ def generate_activation_link(user):
 
 
 def send_activation_email(user, activation_link):
-    subject = 'Активация аккаунта'
-    message = f'Привет, {user.username}!\n\nПерейдите по ссылке для активации вашего аккаунта:\n{activation_link}'
+    subject = 'Account activation for Djangogram'
+    message = f'Hi, {user.username}!\n\nFollow the link to activate your account:\n{activation_link}'
     from_email = settings.EMAIL_HOST_USER
     recipient_list = [user.email]
 
