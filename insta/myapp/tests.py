@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import PostModel, ProfileModel
 
+
 class TestViews(TestCase):
     def __init__(self, methodName: str = "runTest"):
         super().__init__(methodName)
@@ -111,5 +112,38 @@ class TestViews(TestCase):
 
         response = self.client.post(reverse('login') + '?next=/feed',
                                     {'username' : 'testuser', 'password' : '<testpassword>'})
+        user = response.wsgi_request.user
+        self.assertTrue(user.is_authenticated)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/feed')
+
+    def test_register_view(self):
+        print('test_register_view')
+        response = self.client.get(reverse('register'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myapp/registration.html')
+        self.assertContains(response, '<title>Registration</title>')
+        self.assertIn('form', response.context)
+
+        response = self.client.post(reverse('register'), {
+            'username': 'testuser2',
+            'password': 'testpassword',
+            'confirm_password': 'testpassword',
+            'email': 'test@gmail.com',
+        })
+
+        new_user = User.objects.filter(username = 'testuser2').first()
+
+        self.assertEqual(new_user.username, 'testuser2')
+        self.assertEqual(new_user.email, 'test@gmail.com')
+        self.assertEqual(new_user.is_active, False)
+
+    def test_activate_account_view(self):
+        print('test_activate_account_view')
+        response = self.client.get(reverse('activate_account', args = ('testuid', 'testtoken')))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'myapp/activation.html')
+        self.assertContains(response, '<title>Account activation</title>')
+        self.assertIn('message', response.context)

@@ -1,8 +1,7 @@
 from django import forms
 from django_select2.forms import Select2MultipleWidget
 from django.forms import inlineformset_factory
-from .models import ProfileModel, PostModel, PostImage, TagModel
-from django.core.validators import MinLengthValidator
+from .models import ProfileModel, PostModel, PostImage
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -10,14 +9,11 @@ class RegistrationForm(forms.Form):
     password = forms.CharField(
         label = "Password",
         widget =  forms.PasswordInput,
-    #     validators = [MinLengthValidator(6, message="Password must be at least 6 characters long.")
-    # ]
     )
     confirm_password = forms.CharField(
         label = "Confirm Password",
         widget = forms.PasswordInput
     )
-
 
 #validaion
     def clean(self):
@@ -27,6 +23,7 @@ class RegistrationForm(forms.Form):
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
+
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
@@ -52,7 +49,7 @@ class PostForm(forms.ModelForm):
         model = PostModel
         fields = ['text', 'tags']
         widgets = {
-            'tags': Select2MultipleWidget(attrs={
+            'tags': Select2MultipleWidget(attrs = {
                 'data-placeholder': 'Choose tags...',
                 'style': 'width: 100%;',
                 'class': 'select2-chips'
@@ -65,4 +62,4 @@ class PostImageForm(forms.ModelForm):
         model = PostImage
         fields = ['image']
 
-PostImageFormSet = inlineformset_factory(PostModel, PostImage, form = PostImageForm, extra = 3, can_delete=False)
+PostImageFormSet = inlineformset_factory(PostModel, PostImage, form = PostImageForm, extra = 3, can_delete = False)

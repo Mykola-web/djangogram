@@ -1,25 +1,21 @@
-from symtable import Class
+import logging
 
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.db import IntegrityError
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
+from django.utils.http import urlsafe_base64_decode
+from django.views import View
+from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
-from .models import ProfileModel, PostModel, PostImage
-from django.contrib.auth.hashers import make_password
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
+from .models import PostModel
 from .services import send_activation_email, generate_activation_link
-from django.utils.http import urlsafe_base64_decode
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.tokens import default_token_generator
-from django.views import View
-from django.db import IntegrityError
-import logging
-from django.views.decorators.http import require_POST
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +34,7 @@ class RegisterView(View):
         if request.user.is_authenticated:
             logout(request)
         form = RegistrationForm(request.POST)
+
         if form.is_valid():
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
@@ -79,6 +76,7 @@ class EditProfileView(LoginRequiredMixin, View):
     def get(self, request):
         form = EditProfileForm(instance = request.user.profile)
         return render(request, 'myapp/edit_profile.html', {'form': form})
+
     def post(self, request):
         form = EditProfileForm(request.POST,request.FILES, instance=request.user.profile)
         if form.is_valid():
@@ -127,10 +125,10 @@ class FeedView(LoginRequiredMixin, View):
         return render(request, 'myapp/feed.html', {'posts': posts})
 
 
-class ProfileView(LoginRequiredMixin, View):
-    def get(self, request):
-        posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
-        return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
+# class ProfileView(LoginRequiredMixin, View):
+#     def get(self, request):
+#         posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
+#         return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
 
 
 class PostingView(LoginRequiredMixin, View):
@@ -160,7 +158,7 @@ class PostingView(LoginRequiredMixin, View):
                               {'form': post_form, 'formset' : formset})
 
 
-class profileView(LoginRequiredMixin, View):
+class ProfileView(LoginRequiredMixin, View):
         def get(self, request, username = None):
             # Here it is decided whose page will be opened, the current user or another
             if username:
