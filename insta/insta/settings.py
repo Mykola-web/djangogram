@@ -172,3 +172,8 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+#safety for deploy
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
