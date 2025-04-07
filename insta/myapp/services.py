@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes
 def generate_activation_link(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = default_token_generator.make_token(user)
-    activation_link = f"http://127.0.0.1:8000/activate/{uid}/{token}/"
+    activation_link = f"/activate/{uid}/{token}/"
     return activation_link
 
 

@@ -90,9 +90,10 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+POSTGRES_LOCALY = False
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
-if ENVIRONMENT == 'production':
+if ENVIRONMENT == 'production' or POSTGRES_LOCALY == True:
     DATABASE_URL = os.getenv('PROD_DATABASE_URL')
 else:
     DATABASE_URL = os.getenv('DEV_DATABASE_URL')
@@ -102,6 +103,7 @@ DATABASES = {
 }
 print(f"ENVIRONMENT = {ENVIRONMENT}")
 print(f"DATABASE_URL = {DATABASE_URL}")
+print(f"PROD_DATABASE_URL = {DATABASE_URL}")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -156,7 +158,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# email sanding
+# activation email link sanding to console instead of internet
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
