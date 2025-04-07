@@ -90,9 +90,18 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
+
+if ENVIRONMENT == 'production':
+    DATABASE_URL = os.getenv('PROD_DATABASE_URL')
+else:
+    DATABASE_URL = os.getenv('DEV_DATABASE_URL')
+
 DATABASES = {
-    'default': dj_database_url.config(default = os.getenv("DATABASE_URL"))
+    'default': dj_database_url.config(default = DATABASE_URL)
 }
+print(f"ENVIRONMENT = {ENVIRONMENT}")
+print(f"DATABASE_URL = {DATABASE_URL}")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
