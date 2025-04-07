@@ -101,9 +101,6 @@ else:
 DATABASES = {
     'default': dj_database_url.config(default = DATABASE_URL)
 }
-print(f"ENVIRONMENT = {ENVIRONMENT}")
-print(f"DATABASE_URL = {DATABASE_URL}")
-print(f"PROD_DATABASE_URL = {DATABASE_URL}")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
