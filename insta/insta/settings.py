@@ -32,7 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "web-production-d7641.up.railway.app",
-    "127.0.0.1",  # для локального тестирования
+    "127.0.0.1",
+    'djangoogram-b428371d1362.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
