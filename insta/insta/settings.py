@@ -98,6 +98,7 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # else:
 #     DATABASE_URL = os.getenv('DEV_DATABASE_URL')
 DATABASE_URL = os.getenv('DATABASE_URL')
+
 DATABASES = {
     'default': dj_database_url.config(default = DATABASE_URL)
 }
