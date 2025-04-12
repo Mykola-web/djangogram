@@ -94,7 +94,7 @@ POSTGRES_LOCALY = True
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALY == True:
-    DATABASE_URL = os.getenv('PROD_DATABASE_URL')
+    DATABASE_URL = os.getenv('DATABASE_URL')
 else:
     DATABASE_URL = os.getenv('DEV_DATABASE_URL')
 
