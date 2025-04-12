@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-POSTGRES_LOCALY = False
+POSTGRES_LOCALY = True
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALY == True:
