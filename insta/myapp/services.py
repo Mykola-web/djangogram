@@ -16,7 +16,7 @@ def generate_activation_link(user):
     if os.getenv('ENVIRONMENT') == 'development':
         activation_link = f"http://127.0.0.1:8000/activate/{uid}/{token}/"
     else:
-        activation_link = f"https://djangoogram-b428371d1362.herokuapp.com/activate/{uid}/{token}"
+        activation_link = f"https://djangogramm1-1620dd96cc61.herokuapp.com/activate/{uid}/{token}"
     return activation_link
 
 
