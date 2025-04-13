@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "web-production-d7641.up.railway.app",
     "127.0.0.1",
     'djangoogram-b428371d1362.herokuapp.com',
+    'djangogramm1-1620dd96cc61.herokuapp.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -91,7 +92,7 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-POSTGRES_LOCALY = True
+POSTGRES_LOCALY = False
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALY == True:
