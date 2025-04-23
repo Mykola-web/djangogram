@@ -12,5 +12,4 @@ __pycache__/
 .idea/
 *.env
 *.bak
-static/
 media/

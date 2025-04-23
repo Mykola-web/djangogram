@@ -1,0 +1,131 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    padding: 80px 0;
+}
+
+.wrapper, .login_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.posts-container, .login_wrapper form {
+    width: 100%;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px) brightness(1.2);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h2 {
+    color: white;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field label {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+input:focus + label, input:not(:placeholder-shown) + label,
+textarea:focus + label, textarea:not(:placeholder-shown) + label {
+    top: 5px;
+    left: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.forget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.forget label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.forget a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.forget a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+button, .register a {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+button:hover, .register a:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.register {
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    margin-top: 10px;
+}
