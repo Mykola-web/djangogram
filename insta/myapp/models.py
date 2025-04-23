@@ -15,7 +15,7 @@ class ProfileModel(models.Model):
         ('other', 'Other'),
     ]
     gender = models.CharField(max_length = 6, choices = GENDER_CHOICES, default = 'male')
-    avatar = models.ImageField(upload_to = 'avatars/', default = 'avatars/default_avatar.png', blank = True)
+    avatar = models.ImageField(upload_to = 'avatars/', default = 'static/images/default_avatar.png', blank = True)
     birth_date = models.DateField(blank = True, null = True)
     bio = models.TextField(blank = True, null = True)
 
