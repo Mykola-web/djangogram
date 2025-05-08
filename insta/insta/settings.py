@@ -31,10 +31,8 @@ SECRET_KEY = 'django-insecure-+^$4^hgehck$vm+4szdia%g8-xoc6@x#d+2v&afv$ugeg0826=
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "web-production-d7641.up.railway.app",
     "127.0.0.1",
-    'djangoogram-b428371d1362.herokuapp.com',
-    'djangogramm1-1620dd96cc61.herokuapp.com',
+    '35.239.115.29',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
