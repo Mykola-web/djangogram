@@ -91,11 +91,10 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-POSTGRES_LOCALY = False
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
-if ENVIRONMENT == 'production' or POSTGRES_LOCALY == True:
-    DATABASE_URL = os.getenv('DATABASE_URL')
+if ENVIRONMENT == 'production':
+    DATABASE_URL = os.getenv('PROD_DATABASE_URL')
 else:
     DATABASE_URL = os.getenv('DEV_DATABASE_URL')
 
