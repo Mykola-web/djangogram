@@ -22,3 +22,4 @@ staticfiles/**
 *.gif
 *.webp
 *.svg
+!**/.gitkeep
