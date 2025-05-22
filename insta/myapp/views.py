@@ -114,7 +114,7 @@ class LoginView(View):
 
         login(request, user)
 
-        next_url = request.POST.get('next') or request.GET.get('next')
+        next_url = request.POST.get('next')
 
         return redirect(next_url if next_url else 'feed')
 
@@ -123,12 +123,6 @@ class FeedView(LoginRequiredMixin, View):
     def get(self, request):
         posts = PostModel.objects.all().order_by("-created_at")
         return render(request, 'myapp/feed.html', {'posts': posts})
-
-
-# class ProfileView(LoginRequiredMixin, View):
-#     def get(self, request):
-#         posts = PostModel.objects.filter(author=request.user).order_by("-created_at")
-#         return render(request, 'myapp/profile.html', {'user': request.user, 'posts': posts})
 
 
 class PostingView(LoginRequiredMixin, View):
@@ -183,3 +177,11 @@ class LikePostView(LoginRequiredMixin, View):
         else:
             post.likes.add(request.user)
         return JsonResponse({'likes_count': post.likes.count()})
+
+class RestorePasswordView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+
+        return render(request, 'myapp/restore_profile.html')
+    # def post(self, request):

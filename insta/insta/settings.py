@@ -33,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     '35.239.115.29',
+    '192.168.1.102',
 ]
 
 CSRF_TRUSTED_ORIGINS = [

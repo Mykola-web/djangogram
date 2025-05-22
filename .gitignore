@@ -13,3 +13,12 @@ __pycache__/
 *.env
 *.bak
 media/
+static/**
+insta/static/**
+staticfiles/**
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg

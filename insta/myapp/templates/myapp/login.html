@@ -21,13 +21,14 @@
           <label>Enter your password</label>
           {{ form.password }}
         </div>
+        <input type="hidden" name="next" value="{{ next }}">
         <div class="forget">
           <label for="remember">
             <input type="checkbox" name="remember" id="remember">
             <input type="hidden" name="next" value="{{ request.GET.next }}">
             <p>Remember me</p>
           </label>
-          <a href="#">Forgot password?</a>
+          <a href="{% url 'password_reset' %}">Forgot password?</a>
         </div>
         <button type="submit">Log In</button>
         <div class="register">

@@ -14,9 +14,9 @@ def generate_activation_link(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = default_token_generator.make_token(user)
     if os.getenv('ENVIRONMENT') == 'development':
-        activation_link = f"http://35.239.115.29:8000/activate/{uid}/{token}/"
+        activation_link = f"http://127.0.0.1:8000/activate/{uid}/{token}/"
     else:
-        activation_link = f"https://djangogramm1-1620dd96cc61.herokuapp.com/activate/{uid}/{token}"
+        activation_link = f"http://35.239.115.29:8000/activate/{uid}/{token}/"
     return activation_link
 
 

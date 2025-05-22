@@ -1,7 +1,7 @@
 from django import forms
 from django_select2.forms import Select2MultipleWidget
 from django.forms import inlineformset_factory
-from .models import ProfileModel, PostModel, PostImage
+from .models import ProfileModel, PostModel, PostImage, User
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -23,6 +23,14 @@ class RegistrationForm(forms.Form):
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
+        return cleaned_data
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('User with this email already exists')
+        return email
+
 
 
 class EditProfileForm(forms.ModelForm):
@@ -63,3 +71,7 @@ class PostImageForm(forms.ModelForm):
         fields = ['image']
 
 PostImageFormSet = inlineformset_factory(PostModel, PostImage, form = PostImageForm, extra = 3, can_delete = False)
+
+class RestorePasswordForm(forms.Form):
+    username = forms.CharField(label='username', max_length=100)
+    email = forms.EmailField(label='Email')
