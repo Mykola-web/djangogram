@@ -93,11 +93,12 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
-if ENVIRONMENT == 'production':
-    DATABASE_URL = os.getenv('PROD_DATABASE_URL')
-else:
-    DATABASE_URL = os.getenv('DEV_DATABASE_URL')
+# if ENVIRONMENT == 'production':
+#     DATABASE_URL = os.getenv('PROD_DATABASE_URL')
+# else:
+#     DATABASE_URL = os.getenv('DATABASE_URL')
 
+DATABASE_URL = os.getenv('DATABASE_URL')
 DATABASES = {
     'default': dj_database_url.config(default = DATABASE_URL)
 }
