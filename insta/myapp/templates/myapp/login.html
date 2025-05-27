@@ -7,6 +7,7 @@
     {% load static %}
     <link href="{% static 'styles.css' %}" rel="stylesheet">
     <link href="{% static 'login.css' %}" rel="stylesheet">
+    {% load socialaccount %}
   </head>
   <body>
     <div class="login_wrapper">
@@ -35,6 +36,10 @@
           <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
         </div>
       </form>
+      <form action="{% provider_login_url 'google' %}" method="get">
+        <button type="submit">Войти через Google</button>
+      </form>
+
     </div>
   </body>
 </html>

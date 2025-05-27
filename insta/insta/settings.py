@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     '35.239.115.29',
     '192.168.1.102',
+    'djangle.online'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -54,7 +55,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_select2',
     'widget_tweaks',
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #providers
+    'allauth.socialaccount.providers.google'
 ]
+
+#for allauth
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # regular authorization
+    'allauth.account.auth_backends.AuthenticationBackend',  # via third party services
+]
+
+LOGIN_REDIRECT_URL = 'feed'
+LOGOUT_REDIRECT_URL = '/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'insta.urls'
