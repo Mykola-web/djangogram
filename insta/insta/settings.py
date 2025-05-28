@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     '35.239.115.29',
     '192.168.1.102',
     'djangle.online'
-    '34.132.46.146',
+    '34.72.195.94',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
