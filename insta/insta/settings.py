@@ -31,11 +31,12 @@ SECRET_KEY = 'django-insecure-+^$4^hgehck$vm+4szdia%g8-xoc6@x#d+2v&afv$ugeg0826=
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'djangle.site',
+    'www.djangle.site',
     "127.0.0.1",
     'localhost',
     '35.239.115.29',
     '192.168.1.102',
-    'djangle.online',
     '34.132.46.146',
 ]
 
