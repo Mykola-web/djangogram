@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -16,7 +16,7 @@ urlpatterns = [
     path('profile/<str:username>/', views.ProfileView.as_view(), name = 'profile'),
     path('profile/', views.ProfileView.as_view(), name = 'profile'),
     path('like_post/<int:post_id>/', views.LikePostView.as_view(), name = 'like_post'),
-    # path('forgot_password/', views.RestorePasswordView.as_view(), name = 'restore_password'),
+    #password reset logic:
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='myapp/password_reset.html'),
          name='password_reset'),
     path('password-reset/done/',
@@ -27,5 +27,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('reset/done/',
          auth_views.PasswordResetCompleteView.as_view(template_name='myapp/password_reset_complete.html'),
-         name='password_reset_complete')
+         name='password_reset_complete'),
+    #google authorization logic:
+    path('accounts/', include('allauth.urls')),
 ]

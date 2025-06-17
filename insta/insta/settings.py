@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-d7641.up.railway.app",
+    "https://djangle.site",
+    '34.132.46.146',
 ]
 
 
@@ -58,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_select2',
     'widget_tweaks',
-    #allauth
+    #allauth for authorization
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -73,6 +74,13 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # regular authorization
     'allauth.account.auth_backends.AuthenticationBackend',  # via third party services
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google' : {
+        'SCOPE' : ['profile', 'email'],
+        'AUTH_PARAMS' : {'access_type' : 'online'}
+    }
+}
 
 LOGIN_REDIRECT_URL = 'feed'
 LOGOUT_REDIRECT_URL = '/'
