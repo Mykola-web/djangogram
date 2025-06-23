@@ -42,7 +42,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://djangle.site",
-    '34.132.46.146',
+    'https://34.132.46.146',
 ]
 
 
@@ -81,6 +81,12 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS' : {'access_type' : 'online'}
     }
 }
+
+#to always use https if possible
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LOGIN_REDIRECT_URL = 'feed'
 LOGOUT_REDIRECT_URL = '/'
