@@ -36,10 +36,12 @@
           <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
         </div>
       </form>
-
+      <form class="google-form" action="{% provider_login_url 'google' %}" method="get">
+        <button class="google-btn" type="submit">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="G" class="google-icon">
+            Or continue with Google
+        </button>
+      </form>
     </div>
-    <form class="google_form" action="{% provider_login_url 'google' %}" method="get">
-        <button type="submit">Войти через Google</button>
-    </form>
   </body>
 </html>
