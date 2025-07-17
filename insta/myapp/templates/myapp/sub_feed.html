@@ -17,7 +17,7 @@
 
 <div class="feed_wrapper">
   <div class="feed_post_container">
-      {% if subscribtion == True %}
+      {% if posts %}
           {% for post in posts %}
               <div class="post">
                   <div class="post-author">
@@ -28,7 +28,7 @@
                             <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar">
                         {% endif %}
                       </a>
-        <!--                  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>-->
+                          <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>
                   </div>
                   <p>{{ post.text }}</p>
               <div>

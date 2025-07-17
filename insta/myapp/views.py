@@ -129,13 +129,9 @@ class SubFeedView(LoginRequiredMixin, View):
         user = request.user
         subscribed_profiles = user.subscribed.all()  # Это ProfileModel
         subscribed_users = [profile.user for profile in subscribed_profiles]
-        if len(subscribed_users) <= 0:
-            subscribtions = False
-        else:
-            subscribtions = True
+
         posts = PostModel.objects.filter(author__in=subscribed_users).order_by('-created_at')
-        return render(request, 'myapp/sub_feed.html',
-                      {'posts': posts, 'subscribtions': subscribtions})
+        return render(request, 'myapp/sub_feed.html',{'posts': posts})
 
 
 class PostingView(LoginRequiredMixin, View):
