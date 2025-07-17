@@ -19,19 +19,41 @@
 	<div class="profile_wrapper">
 		<div class="profile-card">
 			    <div class="avatar-container">
-					<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="User Avatar" class="avatar">
+						{% if profile_owner.profile.avatar %}
+							<img class="avatar" src="{{ profile_owner.profile.avatar.url }}" alt="Avatar">
+						{% else %}
+							<img class="avatar" src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar">
+						{% endif %}
+<!--					<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="User Avatar" class="avatar">-->
 				</div>
 				<div class="user-info">
-					<h2 class="username">{{ user.username }}</h2>
-					<p class="bio">{{ user.profile.bio | default:'Some profile text' }}</p>
+					<h2 class="username">{{ profile_owner.username }}</h2>
+					<p class="bio">{{ profile_owner.profile.bio | default:'Some profile text' }}</p>
 				</div>
+		</div>
+		<div>
+			<form method="post" action="{% url 'profile' profile_owner.username%}">
+				{% csrf_token %}
+<!--				<button class="white-btn" type="submit">SUBSCRIBE</button>-->
+				{% if not is_own_profile %}
+					{% if is_subscribed %}
+						<button type="submit" class="btn btn-danger">UNSUBSCRIBE</button>
+					{% else %}
+						<button type="submit" class="btn btn-primary">SUBSCRIBE</button>
+					{% endif %}
+				{% endif %}
+			</form>
 		</div>
 		<div class="posts-container">
 			{% for post in posts %}
 				<div class="post">
 				  <div class="post-author">
 					  <a href="/profile/{{ post.author.username }}" class="author-avatar">
-						  <img src="{{ post.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="Author Avatar">
+						{% if post.author.profile.avatar %}
+							<img src="{{ post.author.profile.avatar.url }}" alt="Avatar">
+						{% else %}
+							<img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar">
+						{% endif %}
 					  </a>
 					  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>
 				  </div>

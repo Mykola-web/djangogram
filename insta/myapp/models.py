@@ -18,6 +18,7 @@ class ProfileModel(models.Model):
     avatar = models.ImageField(upload_to = 'avatars/', default = 'static/images/default_avatar.png', blank = True)
     birth_date = models.DateField(blank = True, null = True)
     bio = models.TextField(blank = True, null = True)
+    subscribers = models.ManyToManyField(User, related_name='subscribed', blank=True)
 
     objects = models.Manager()
 

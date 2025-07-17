@@ -21,9 +21,13 @@
           <div class="post">
               <div class="post-author">
                   <a href="/profile/{{ post.author.username }}" class="author-avatar">
-                      <img src="{{ post.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="Author Avatar">
+                    {% if post.author.profile.avatar %}
+					    <img src="{{ post.author.profile.avatar.url }}" alt="Avatar">
+				    {% else %}
+					    <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar">
+				    {% endif %}
                   </a>
-                  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>
+<!--                  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>-->
               </div>
               <p>{{ post.text }}</p>
           <div>
@@ -45,8 +49,8 @@
                   <p>{{ post.created_at }}</p>
                   <div class="like-button-container">
                       <button class="like-button" onclick="likePost({{ post.id }}, this)">
-                          <img src="/static/images/like.png" alt="Like" class="unliked" {% if request.user in post.likes.all %}style="display: none;"{% endif %}>
-                          <img src="/static/images/liked.png" alt="Liked" class="liked" {% if request.user not in post.likes.all %}style="display: none;"{% endif %}>
+                          <img src="/static/images/like.png" alt="Like" class="unliked" {% if request.user not in post.likes.all %}style="display: none;"{% endif %}>
+                          <img src="/static/images/liked.png" alt="Liked" class="liked" {% if request.user in post.likes.all %}style="display: none;"{% endif %}>
                       </button>
                       <a href="#" class="likes-count" onclick="showLikes({{ post.id }})">{{ post.likes.count }}</a>
                   </div>

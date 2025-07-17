@@ -9,6 +9,7 @@ urlpatterns = [
     path('sent_email', views.RegisterView.as_view(), name = 'sent_email'),
     path('profile/edit', views.EditProfileView.as_view(), name = 'edit_profile'),
     path('feed/', views.FeedView.as_view(), name = 'feed'),
+    path('sub_feed/', views.SubFeedView.as_view(), name='sub_feed'),
     path('post', views.PostingView.as_view(), name = 'post'),
     path('activate/<uidb64>/<token>/', views.ActivateAccount.as_view(), name = 'activate_account'),
     path('login/', views.LoginView.as_view(), name = 'login'),

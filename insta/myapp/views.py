@@ -14,7 +14,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
-from .models import PostModel
+from .models import PostModel, ProfileModel
 from .services import send_activation_email, generate_activation_link
 
 logger = logging.getLogger(__name__)
@@ -124,6 +124,19 @@ class FeedView(LoginRequiredMixin, View):
         posts = PostModel.objects.all().order_by("-created_at")
         return render(request, 'myapp/feed.html', {'posts': posts})
 
+class SubFeedView(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        subscribed_profiles = user.subscribed.all()  # Это ProfileModel
+        subscribed_users = [profile.user for profile in subscribed_profiles]
+        if len(subscribed_users) <= 0:
+            subscribtions = False
+        else:
+            subscribtions = True
+        posts = PostModel.objects.filter(author__in=subscribed_users).order_by('-created_at')
+        return render(request, 'myapp/sub_feed.html',
+                      {'posts': posts, 'subscribtions': subscribtions})
+
 
 class PostingView(LoginRequiredMixin, View):
     def get(self, request):
@@ -153,19 +166,46 @@ class PostingView(LoginRequiredMixin, View):
 
 
 class ProfileView(LoginRequiredMixin, View):
-        def get(self, request, username = None):
-            # Here it is decided whose page will be opened, the current user or another
-            if username:
-                user = get_object_or_404(User, username = username)
-            elif request.user.is_authenticated:
-                user= request.user
-            else:
-                return HttpResponse("The user is not authorized", status = 401)
+    def get(self, request, username = None):
+        # Here it is decided whose page will be opened, the current user or another
+        if username:
+            profile_owner = get_object_or_404(User, username = username)
+        elif request.user.is_authenticated:
+            profile_owner = request.user
+        else:
+            return HttpResponse("The user is not authorized", status = 401)
 
-            is_own_profile = request.user.is_authenticated and request.user == user
-            posts = PostModel.objects.filter(author = user).order_by("-created_at")
-            return render(request, 'myapp/profile.html', {'user': user,
-                                                           'posts': posts, 'is_own_profile': is_own_profile})
+        is_own_profile = request.user.is_authenticated and request.user == profile_owner
+
+        profile = get_object_or_404(ProfileModel, user = profile_owner)
+        is_subscribed = request.user in profile.subscribers.all()
+        posts = PostModel.objects.filter(author = profile_owner).order_by("-created_at")
+        return render(request, 'myapp/profile.html', {'profile_owner': profile_owner,
+                                                               'posts': posts,
+                                                               'is_own_profile': is_own_profile,
+                                                               'is_subscribed': is_subscribed,})
+
+    def post(self, request, username = None):
+        if username:
+            profile_owner = get_object_or_404(User, username = username)
+        elif request.user.is_authenticated:
+            profile_owner = request.user
+        else:
+            return HttpResponse("The user is not authorized", status = 401)
+
+        profile = profile_owner.profile
+
+        if request.user == profile_owner:
+            # cannot subscribe to yourself, do nothing
+            pass
+        else:
+            if profile.subscribers.filter(id=request.user.id).exists():
+                profile.subscribers.remove(request.user)
+            else:
+                profile.subscribers.add(request.user)
+
+        return redirect('profile', username = username or request.user.username)
+
 
 
 class LikePostView(LoginRequiredMixin, View):
