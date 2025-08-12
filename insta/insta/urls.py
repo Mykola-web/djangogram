@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG and not settings.USE_CLOUDINARY:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

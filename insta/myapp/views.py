@@ -12,10 +12,12 @@ from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
+from django.core.files.storage import default_storage
 
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
 from .models import PostModel, ProfileModel
 from .services import send_activation_email, generate_activation_link
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 logger = logging.getLogger(__name__)
 
@@ -150,9 +152,12 @@ class PostingView(LoginRequiredMixin, View):
                 post.save()
                 post_form.save_m2m()
 
+                cloud_storage = MediaCloudinaryStorage()
                 images = formset.save(commit = False)
                 for image in images:
                     image.post = post
+                    with image.image.open() as f:
+                        image.image = cloud_storage.save(image.image.name, f)
                     image.save()
 
                 return redirect('profile')
@@ -220,4 +225,3 @@ class RestorePasswordView(View):
             logout(request)
 
         return render(request, 'myapp/restore_profile.html')
-    # def post(self, request):

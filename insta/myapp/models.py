@@ -2,6 +2,7 @@ import logging
 
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,7 @@ class ProfileModel(models.Model):
         ('other', 'Other'),
     ]
     gender = models.CharField(max_length = 6, choices = GENDER_CHOICES, default = 'male')
-    avatar = models.ImageField(upload_to = 'avatars/', default = 'static/images/default_avatar.png', blank = True)
+    avatar = CloudinaryField('avatars', blank = True)
     birth_date = models.DateField(blank = True, null = True)
     bio = models.TextField(blank = True, null = True)
     subscribers = models.ManyToManyField(User, related_name='subscribed', blank=True)
@@ -61,7 +62,7 @@ class TagModel(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(PostModel, on_delete = models.CASCADE, related_name = 'images')
-    image = models.ImageField(upload_to = 'post_images/')
+    image = CloudinaryField('image')
 
     def __str__(self):
         return f'Image for {self.post.author.username}' if self.post else "Orphaned Image"
