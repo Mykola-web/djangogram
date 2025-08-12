@@ -39,6 +39,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'djangle.site',
     'www.djangle.site',
+    '34.159.60.130',
     "127.0.0.1",
     'localhost',
     '35.239.115.29',
@@ -49,6 +50,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://djangle.site",
     'https://34.132.46.146',
+    'https://34.159.60.130',
 ]
 
 
@@ -190,7 +192,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
+# STATIC_ROOT = '/home/korondei/djangogram/insta/staticfiles/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
