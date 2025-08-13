@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'myapp',
     'insta',
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
