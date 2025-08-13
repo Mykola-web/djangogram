@@ -84,9 +84,19 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google' : {
-        'SCOPE' : ['profile', 'email'],
-        'AUTH_PARAMS' : {'access_type' : 'online'}
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'key': ''
+        }
     }
 }
 
@@ -149,9 +159,6 @@ DATABASES = {
     'default': dj_database_url.config(default = DATABASE_URL)
 }
 
-print("ENVIRONMENT =", ENVIRONMENT)
-print("DATABASE_URL =", DATABASE_URL)
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -198,10 +205,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
 
 # activation email link sanding to console instead of internet
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
