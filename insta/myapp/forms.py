@@ -20,9 +20,16 @@ class RegistrationForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        username = cleaned_data.get("username")
+        email = cleaned_data.get("email")
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
+
+        if username:
+            User.objects.filter(username=username, is_active=False).delete()
+        if email:
+            User.objects.filter(email=email, is_active=False).delete()
         return cleaned_data
 
     def clean_email(self):
@@ -30,7 +37,6 @@ class RegistrationForm(forms.Form):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('User with this email already exists')
         return email
-
 
 
 class EditProfileForm(forms.ModelForm):
