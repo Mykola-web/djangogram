@@ -198,15 +198,21 @@ class ProfileView(LoginRequiredMixin, View):
 
         if request.user == profile_owner:
             # cannot subscribe to yourself, do nothing
-            pass
+            return JsonResponse({"error": "Cannot subscribe to yourself"}, status = 400)
         else:
             if profile.subscribers.filter(id=request.user.id).exists():
                 profile.subscribers.remove(request.user)
+                is_subscribed = False
             else:
                 profile.subscribers.add(request.user)
+                is_subscribed = True
 
-        return redirect('profile', username = username or request.user.username)
+        return JsonResponse({"is_subscribed": is_subscribed})
 
+# class ProfileView(LoginRequiredMixin, View):
+#     @method_decorator(require_POST)
+#     def post(self, request, username = None):
+#         profile_owner = get_object_or_404(User, username = username)
 
 
 class LikePostView(LoginRequiredMixin, View):

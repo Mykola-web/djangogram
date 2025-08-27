@@ -24,7 +24,6 @@
 						{% else %}
 							<img class="avatar" src="https://res.cloudinary.com/dnctmhqcl/image/upload/default_avatar_gruuhe" alt="Default Avatar">
 						{% endif %}
-<!--					<img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}" alt="User Avatar" class="avatar">-->
 				</div>
 				<div class="user-info">
 					<h2 class="username">{{ profile_owner.username }}</h2>
@@ -32,17 +31,17 @@
 				</div>
 		</div>
 		<div>
-			<form method="post" action="{% url 'profile' profile_owner.username%}">
-				{% csrf_token %}
-<!--				<button class="white-btn" type="submit">SUBSCRIBE</button>-->
-				{% if not is_own_profile %}
-					{% if is_subscribed %}
-						<button type="submit" class="btn btn-danger">UNSUBSCRIBE</button>
-					{% else %}
-						<button type="submit" class="btn btn-primary">SUBSCRIBE</button>
-					{% endif %}
-				{% endif %}
-			</form>
+			{% if is_subscribed or is_own_profile %} {% else %}
+			<div id="subscribe-cat-btn" style="width:120px; height:80px; cursor:pointer;"></div>
+			{% endif %}
+			{% if is_own_profile %}	{% else %}
+			<button id="subscribe-btn"
+				class="btn {% if is_subscribed %}btn-secondary{% else %}btn-primary{% endif %}"
+				data-username="{{ profile_owner.username }}">
+				{% if is_subscribed %}Subscribed{% else %}Subscribe{% endif %}
+				<div id="subscribe-animation" style="position: absolute; pointer-events: none;"></div>
+			</button>
+			{% endif %}
 		</div>
 		<div class="posts-container">
 			{% for post in posts %}
@@ -52,7 +51,7 @@
 						{% if post.author.profile.avatar %}
 							<img src="{{ post.author.profile.avatar.url }}" alt="Avatar">
 						{% else %}
-							<img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar">
+							<img src="https://res.cloudinary.com/dnctmhqcl/image/upload/default_avatar_gruuhe" alt="Default Avatar">
 						{% endif %}
 					  </a>
 					  <a href="/profile/{{ post.author.username }}" class="author-name">{{ post.author.username }}</a>
@@ -67,16 +66,13 @@
 				  </div>
 				  {% if post.images.all %}
 				  {% for image in post.images.all %}
-					<img src="{{ image.image.url }}" alt="Post Image">
+					<img src="{{ image.image.url }}" alt="Post Image " loading="lazy"/>
 				  {% endfor %}
 				  {% endif %}
 					<div class="post-footer">
 						<p>{{ post.created_at }}</p>
 						<div class="like-button-container">
-							<button class="like-button" onclick="likePost({{ post.id }}, this)">
-								<img src="/static/images/like.png" alt="Like" class="unliked" {% if request.user in post.likes.all %}style="display: none;"{% endif %}>
-								<img src="/static/images/liked.png" alt="Liked" class="liked" {% if request.user not in post.likes.all %}style="display: none;"{% endif %}>
-							</button>
+							<div id="like-button-{{ post.id }}" style="width:40px; height:40px; cursor:pointer;"></div>
 							<a href="#" class="likes-count" onclick="showLikes({{ post.id }})">{{ post.likes.count }}</a>
 						</div>
 					</div>
@@ -84,28 +80,5 @@
 			{% endfor %}
 		</div>
 	</div>
-	<script>
-		function likePost(postId, button) {
-			fetch(`/like_post/${postId}/`, {
-				method: 'POST',
-				headers: {
-					'X-CSRFToken': '{{ csrf_token }}',
-					'Content-Type': 'application/json'
-				},
-			})
-			.then(response => response.json())
-			.then(data => {
-				button.classList.toggle('liked');
-				const likesCount = button.nextElementSibling;
-				likesCount.textContent = data.likes_count;
-				if (button.classList.contains('liked')) {
-					button.querySelector('.unliked').style.display = 'none';
-					button.querySelector('.liked').style.display = 'block';
-				} else {
-					button.querySelector('.unliked').style.display = 'block';
-					button.querySelector('.liked').style.display = 'none';
-				}
-			});
-		}
-	</script>
+	<script src="{% static 'dist/bundle.js' %}"></script>
 {% endblock %}

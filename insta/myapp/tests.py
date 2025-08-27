@@ -11,9 +11,9 @@ class TestViews(TestCase):
     def setUp(self):
         print("setUp")
         self.client = client.Client()
-        self.User = User.objects.create_user(username = 'testuser', email = 'test@gmail.com',
+        self.User = User.objects.create_user(username = 'testuser', email = 'test.js@gmail.com',
                                              password='<testpassword>', is_active = True, is_staff = True)
-        self.post = PostModel(author = self.User, text = 'test post')
+        self.post = PostModel(author = self.User, text = 'test.js post')
 
     def test_feed_view(self):
         print('test_feed_view')
@@ -27,7 +27,7 @@ class TestViews(TestCase):
 
     def test_profile_view(self):
         print('test_profile_view')
-        ProfileModel.objects.filter(user = self.User).update(bio = 'test bio')
+        ProfileModel.objects.filter(user = self.User).update(bio = 'test.js bio')
 
         self.client.force_login(user = self.User)
         response = self.client.get(reverse('profile'))
@@ -36,7 +36,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'myapp/profile.html')
         self.assertContains(response, '<title>Profile</title>')
         self.assertContains(response, 'testuser')
-        self.assertContains(response, 'test bio')
+        self.assertContains(response, 'test.js bio')
         self.assertIn('posts', response.context)
         self.assertIn('user', response.context)
         self.assertEqual(response.context['user'], self.User)
@@ -65,24 +65,24 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'myapp/edit_profile.html')
 
         response = self.client.post(reverse('edit_profile'), {
-            'first_name': 'test',
-            'last_name': 'test',
+            'first_name': 'test.js',
+            'last_name': 'test.js',
             'gender': 'male',
             'avatar': 'avatars/default_avatar.png',
             'birth_date': '2000-01-01',
-            'bio': 'test bio'
+            'bio': 'test.js bio'
         })
 
         self.assertEqual(response.status_code, 302)
 
         profile = ProfileModel.objects.get(user = self.User)
 
-        self.assertEqual(profile.first_name, 'test')
-        self.assertEqual(profile.last_name, 'test')
+        self.assertEqual(profile.first_name, 'test.js')
+        self.assertEqual(profile.last_name, 'test.js')
         self.assertEqual(profile.gender, 'male')
         self.assertEqual(profile.avatar, 'avatars/default_avatar.png')
         self.assertEqual(profile.birth_date.strftime('%Y-%m-%d'), '2000-01-01')
-        self.assertEqual(profile.bio, 'test bio')
+        self.assertEqual(profile.bio, 'test.js bio')
 
     def test_redirect_to_login_when_not_authenticated(self):
         print('test_redirect_to_login_when_not_authenticated')
@@ -130,13 +130,13 @@ class TestViews(TestCase):
             'username': 'testuser2',
             'password': 'testpassword',
             'confirm_password': 'testpassword',
-            'email': 'test@gmail.com',
+            'email': 'test.js@gmail.com',
         })
 
         new_user = User.objects.filter(username = 'testuser2').first()
 
         self.assertEqual(new_user.username, 'testuser2')
-        self.assertEqual(new_user.email, 'test@gmail.com')
+        self.assertEqual(new_user.email, 'test.js@gmail.com')
         self.assertEqual(new_user.is_active, False)
 
     def test_activate_account_view(self):

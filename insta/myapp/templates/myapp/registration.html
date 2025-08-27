@@ -33,8 +33,6 @@
         <label>Enter username</label>
         <input type = "text" name = "username" id = "id_username" class = "custom-style" required>
       </div>
-
-
       <!-- Email -->
       <div class="input-field">
         {% if form.email.errors %}
@@ -72,6 +70,6 @@
       </div>
     </form>
   </div>
-  <script src="{% static 'script.js' %}"></script>
+  <script src="{% static 'check_password_match.js' %}"></script>
 </body>
 </html>

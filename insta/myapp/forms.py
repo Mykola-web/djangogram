@@ -62,13 +62,13 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = PostModel
         fields = ['text', 'tags']
-        widgets = {
-            'tags': Select2MultipleWidget(attrs = {
-                'data-placeholder': 'Choose tags...',
-                'style': 'width: 100%;',
-                'class': 'select2-chips'
-            }),
-        }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['tags'].widget.attrs.update({
+                'class': 'select2-chips',  # ← добавляем класс для Select2
+                'multiple': 'multiple',  # если это multiple select
+            })
 
 
 class PostImageForm(forms.ModelForm):

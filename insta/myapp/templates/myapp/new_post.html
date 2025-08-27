@@ -7,8 +7,6 @@
 
 {% block extra_css %}
     {% load static %}
-<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>-->
     <link href="{% static 'new_post.css' %}" rel="stylesheet" />
 {% endblock %}
 
@@ -23,7 +21,6 @@
 <div class="wrapper">
   <div class="posts-container">
         <h2>Make new post</h2>
-
        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-field">
@@ -38,15 +35,15 @@
               {% endif %}
             </div>
             <div class="input-field">
-              <label for="tags">Post tags:</label>
-              {{ form.tags }}
-              {% if form.tags.errors %}
-              <ul>
-                {% for error in form.tags.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
+                <label for="tags">Post tags:</label>
+                {{ form.tags }}
+                {% if form.tags.errors %}
+                <ul>
+                    {% for error in form.tags.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </div>
             {% if form.errors %}
                 <div class="errorlist">
@@ -66,14 +63,4 @@
     </div>
 
  </div>
-    <script>
-    $(document).ready(function() {
-        $('.select2-chips').select2({
-            tags: true,
-            tokenSeparators: [',', ' '],
-            placeholder: "choose or input tags",
-            allowClear: true
-        });
-    });
-</script>
 {% endblock %}

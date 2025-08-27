@@ -24,3 +24,5 @@ staticfiles/**
 *.svg
 /staticfiles/
 insta/staticfiles/
+insta/frontend/node_modules/
+node_modules/
