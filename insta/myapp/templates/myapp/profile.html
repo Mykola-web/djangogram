@@ -36,7 +36,7 @@
 			{% endif %}
 			{% if is_own_profile %}	{% else %}
 			<button id="subscribe-btn"
-				class="btn {% if is_subscribed %}btn-secondary{% else %}btn-primary{% endif %}"
+				class="btn {% if is_subscribed %}btn-secondary{% else %}btn-primary{% endif %} ms-2"
 				data-username="{{ profile_owner.username }}">
 				{% if is_subscribed %}Subscribed{% else %}Subscribe{% endif %}
 				<div id="subscribe-animation" style="position: absolute; pointer-events: none;"></div>
