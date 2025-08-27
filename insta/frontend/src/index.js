@@ -4,7 +4,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 //-----custom static:
 import './like_btn.js'
-import { likePost } from './like_btn.js';
 import './tags_logic.js';
 import './subscribe.js';
 
