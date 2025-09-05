@@ -1,6 +1,7 @@
 from django import forms
 from django_select2.forms import Select2MultipleWidget
 from django.forms import inlineformset_factory
+
 from .models import ProfileModel, PostModel, PostImage, User
 
 class RegistrationForm(forms.Form):

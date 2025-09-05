@@ -1,5 +1,4 @@
 import logging
-
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -13,11 +12,11 @@ from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 from django.core.files.storage import default_storage
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 from .forms import RegistrationForm, EditProfileForm, LoginForm, PostForm, PostImageFormSet
 from .models import PostModel, ProfileModel
 from .services import send_activation_email, generate_activation_link
-from cloudinary_storage.storage import MediaCloudinaryStorage
 
 logger = logging.getLogger(__name__)
 
